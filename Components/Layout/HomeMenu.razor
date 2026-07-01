@@ -1,4 +1,8 @@
-﻿<nav class="navbar navbar-expand-lg navStyle" data-bs-theme="dark">
+﻿@using BlazorCodeChallenge.Components.Services
+@inject ThemeService ThemeService
+@implements IDisposable
+
+<nav class="navbar navbar-expand-lg navStyle" data-bs-theme="dark">
     <div class="container-xxl">
         <a href="/" class="me-3">
             <img src="/images/Home/MagicCodeSquare_3.png" height="40" />
@@ -46,10 +50,27 @@
                 <li class="nav-item">
                     <NavLink class="nav-link" href="/themes">
                         <i class="bi bi-palette"></i>
-                        <span>Themes</span>
+                        <span>Theme - @ThemeService.CurrentTheme</span>
                     </NavLink>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
+@code{
+    protected override void OnInitialized()
+    {
+        ThemeService.ThemeChanged += Refresh;
+    }
+
+    private void Refresh()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        ThemeService.ThemeChanged -= Refresh;
+    }
+}

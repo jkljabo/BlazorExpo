@@ -1,5 +1,9 @@
 ﻿@page "/themes"
+@using BlazorCodeChallenge.Components.Services
+@inject ThemeService ThemeService
+@implements IDisposable
 @inject IJSRuntime JS
+@layout HomeLayout
 
 <PageTitle>Theme Templates</PageTitle>
 
@@ -39,10 +43,26 @@
 
 @code {
 
+    protected override void OnInitialized()
+    {
+        ThemeService.ThemeChanged += Refresh;
+    }
+
+    private void Refresh()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        ThemeService.ThemeChanged -= Refresh;
+
+    }
     public async Task ChangeTheme(string theme)
     {
         // setTheme is defined in index.html
         await JS.InvokeVoidAsync("setTheme", theme);
+        ThemeService.SetTheme(theme);
     }
 
 

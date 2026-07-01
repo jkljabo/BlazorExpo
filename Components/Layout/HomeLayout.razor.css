@@ -1,9 +1,5 @@
-﻿
-.pageStyle {
-    background: linear-gradient(to right, rgb(181,53,132) 0%, rgba(8,7,102) 40%, rgb(8,7,102) 100%);
-    color: var(--cf-light-color);
-
-/*    background: url(images/Home/LandingPageBG.png);*/
+﻿.pageStyle {
+    background: url(images/Home/LandingPageBG.png);
     /*  background: url(images/NEWLandingPageBG.png);*/
     background-repeat: no-repeat;
     background-position: center;
@@ -13,8 +9,7 @@
 .title {
     font-family: var(--cf-title-font);
     font-size: 2rem;
-    /*    color: var(--cf-title-color);*/
-    color: var(--cf-light-color);
+    color: var(--cf-title-color);
     line-height: 2rem;
 }
 
@@ -31,8 +26,7 @@
     .title {
         font-family: var(--cf-title-font);
         font-size: 3rem;
-        /*        color: var(--cf-title-color);*/
-        color: var(--cf-light-color);
+        color: var(--cf-title-color);
         line-height: 3rem;
     }
 

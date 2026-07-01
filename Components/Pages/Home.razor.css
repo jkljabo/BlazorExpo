@@ -7,10 +7,10 @@
 }
 
 .title {
-  font-family: var(--cf-title-font);
-  font-size: 2rem;
-  color: var(--cf-title-color);
-  line-height: 2rem;
+    font-family: var(--cf-title-font);
+    font-size: 2rem;
+    color: var(--cf-title-color);
+    line-height: 2rem;
 }
 
 .subTitle {
@@ -23,12 +23,12 @@
 }
 
 @media (min-width: 992px) {
-  .title {
-    font-family: var(--cf-title-font);
-    font-size: 3rem;
-    color: var(--cf-title-color);
-    line-height: 3rem;
-  }
+    .title {
+        font-family: var(--cf-title-font);
+        font-size: 3rem;
+        color: var(--cf-title-color);
+        line-height: 3rem;
+    }
 
   .subTitle {
     font-family: var(--cf-body-font);
