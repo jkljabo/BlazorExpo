@@ -1,0 +1,87 @@
+﻿@using BlazorCodeChallenge.Components.Services
+
+@inject FooterBrandService FooterBrandService
+@implements IDisposable
+
+<div class="p-3 footerStyle text-light">
+    <div class="container-xxl ">
+        <div class="row row-cols-1 row-cols-md-3 text-center">
+            <div class="col order-last order-md-first text-md-start">
+                <div class="row">
+                    <div class="col-12">
+                        <span class="me-1">Built By</span>
+                        <span>
+                            @* <img src="/images/markspectrelogolight.png" height="30"/> *@
+                            <img src="/images/Home/SMJasonLittleLogoDark_NBC.png" height="30" />
+                        </span>
+                    </div>
+                    <div class="col-12 small">
+                        &copy; 2026 by Jabo INC. All right reserved.
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center gap-2">
+
+                <span>@FooterBrandService.Brand.Label</span>
+
+                @if (!string.IsNullOrWhiteSpace(FooterBrandService.Brand.Url))
+                {
+                    <a href="@FooterBrandService.Brand.Url"
+                       target="_blank">
+
+                        @* class="img-fluid" /> Interferes with service setting*@
+                        <img src="@FooterBrandService.Brand.Image"
+                             width="@FooterBrandService.Brand.Width"
+                             height="@FooterBrandService.Brand.Height"
+                             alt="@FooterBrandService.Brand.Alt" />
+
+                    </a>
+                }
+                else
+                {
+                    @* class="img-fluid" /> Interferes with service setting*@
+                    <img src="@FooterBrandService.Brand.Image"
+                         width="@FooterBrandService.Brand.Width"
+                         height="@FooterBrandService.Brand.Height"
+                         alt="@FooterBrandService.Brand.Alt" />
+                }
+
+            </div>
+            <div class="col d-flex flex-column align-items-center justify-content-end text-md-end">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="https://github.com/jkljabo?tab=repositories"><i class="bi bi-github"></i></a>
+                        <a href="https://www.linkedin.com/in/jason-little-4623a1198"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                    <div class="col-12 small">
+                        <a href="#">Portfolio</a>
+                        &bull;
+                        <a href="#">Blog</a>
+                        &bull;
+                        <a href="#">Bug Tracker</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        FooterBrandService.OnChange += Refresh;
+    }
+
+    private void Refresh()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        FooterBrandService.OnChange -= Refresh;
+    }
+}

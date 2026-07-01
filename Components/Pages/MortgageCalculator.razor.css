@@ -1,0 +1,82 @@
+﻿.pageStyle {
+    background: url(images/Home/LandingPageBG.png);
+    /*  background: url(images/NEWLandingPageBG.png);*/
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.title {
+  font-family: var(--cf-title-font);
+  font-size: 2.5rem;
+  color: var(--cf-title-color);
+  line-height: 2.5rem;
+}
+
+.subTitle {
+  font-family: var(--cf-body-font);
+  font-size: 1rem;
+}
+
+.devicons {
+  font-size: 2rem;
+}
+
+@media (min-width: 992px) {
+  .title {
+    font-family: var(--cf-title-font);
+    font-size: 3rem;
+    color: var(--cf-title-color);
+    line-height: 3rem;
+  }
+
+  .subTitle {
+    font-family: var(--cf-body-font);
+    font-size: 1.5rem;
+  }
+
+  .devicons {
+    font-size: 1.5rem;
+  }
+}
+
+.loanForm{
+    background-color: var(--bs-tertiary-bg);
+    border: solid 1px var(--bs-secondary-bg);
+}
+
+.loanForm input{
+    width: 100%;
+    padding: .5rem;
+}
+
+.paymentTitle{
+    text-align: center;
+    font-size: 1.5rem;
+    font-style: italic;
+}
+
+.payment{
+    text-align: center;
+    font-weight: bold;
+    color: #2B404F;
+    font-family: "Bebas Neue", sans-serif;
+}
+
+.fade-in {
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+.totalCost{
+    font-weight: bold;
+}

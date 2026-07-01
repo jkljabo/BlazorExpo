@@ -1,0 +1,100 @@
+@page "/fizzbuzz"
+@using BlazorCodeChallenge.Components.Services
+@layout HomeLayout
+
+@inject FooterBrandService FooterBrandService
+@implements IDisposable
+
+<PageTitle>Fizz Buzz</PageTitle>
+
+<!--Page Background-->
+<div class="pageStyle h-100 d-flex justify-content-center">
+
+    <div class="row row-cols-1 row-cols-xl-2 container-xxl h-100">
+        <div class="col d-flex flex-column justify-content-xl-center order-last order-xl-first">
+
+            <div class="title">Fizz Buzz: A Coding Challenge Built with Blazor</div>
+
+            <div class="subTitle">Showcasing Modern Web Development Skills Through a Classic Coding Challenge</div>
+
+            <div class="mt-3">
+                <h4>What is Fizz Buzz?</h4>
+                <p>The task is simple: for each number from 1 to a given limit, display 'Fizz' if the number is divisible by one value, 'Buzz' if divisible by another, and 'FizzBuzz' if divisible by both. This app lets you input your own values and explore how the FizzBuzz logic works.</p>
+            </div>
+
+            <div class="container-xxl my-3">
+                <h3>Solve the Fizz Buzz Challenge</h3>
+                <p>Enter your values, press the button and see how the fizz buzz logic works.</p>
+                <EditForm Model="fizzBuzz" OnValidSubmit="GenerateFizzBuzzResults">
+                    <DataAnnotationsValidator />
+                    <div class="border border-secondary-subtle rounded p-4">
+                        <div class="row row-cols-1 row-cols-md-3 align-items-start">
+                            <div class="col mt-2">
+                                <label for="fizzValue" class="form-label">Fizz Value</label>
+                                <InputNumber id="fizzValue" class="form-control" @bind-Value="fizzBuzz.FizzValue" aria-describedby="fizzHelp" aria-label="Fizz Value" placeholder="Fizz Value">
+                                </InputNumber>
+                                <div id="fizzHelp" class="form-text text-muted">
+                                    Replace multiples of this number with the text "Fizz".
+                                </div>
+                                <ValidationMessage for="@(() => fizzBuzz.FizzValue)"/>
+                            </div>
+
+                            <div class="col mt-2">
+                                <label for="buzzValue" class="form-label">Buzz Value</label>
+                                <InputNumber id="BuzzValue" class="form-control" @bind-Value="fizzBuzz.BuzzValue" aria-describedby="buzzHelp" aria-label="Buzz Value" placeholder="Buzz Value">
+                                </InputNumber>
+                                <div id="buzzHelp" class="form-text text-muted">
+                                    Replace multiples of this number with the text "Buzz".
+                                </div>
+                                <ValidationMessage for="@(() => fizzBuzz.BuzzValue)" />
+                            </div>
+
+                            <div class="col mt-2">
+                                <label for="stopValue" class="form-label">Stop Value</label>
+                                <InputNumber id="StopValue" class="form-control" @bind-Value="fizzBuzz.StopValue" aria-describedby="stopHelp" aria-label="Stop Value" placeholder="Stop Value">
+                                </InputNumber>
+                                <div id="stopHelp" class="form-text text-muted">
+                                    The limit of numbers to process.
+                                </div>
+                                <ValidationMessage for="@(() => fizzBuzz.StopValue)" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-end mt-2">
+                                <button type="submit" class="btn btn-primary" aria-label="Generate FizzBuzz Results">Generate</button>
+                            </div>
+                        </div>
+                    </div>
+                </EditForm>
+
+                @if (fizzBuzzResults.Count > 0)
+                {
+                    <h4 class="mt-5 border-bottom">FizzBuzz Results:</h4>
+                    <div class="row row-cols-5">
+                        @foreach (var result in fizzBuzzResults)
+                        {
+                            <FizzBuzzItem FizzBuzzValue="@result"/>
+                        }
+                    </div>
+                }
+
+            </div>
+
+            <div class="mt-3">
+                Built with pride using:
+                <div class="hstack my-2">
+                    <div><i class="devicons devicon-blazor-original colored me-1"></i></div>
+                    <div><i class="devicons devicon-csharp-plain colored me-1"></i></div>
+                    <div><i class="devicons devicon-bootstrap-plain colored me-1"></i></div>
+                    <div><i class="devicons devicon-javascript-plain colored me-1"></i></div>
+                    <div><i class="devicons devicon-html5-plain colored me-1"></i></div>
+                    <div><i class="devicons devicon-css3-plain colored me-1"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex flex-column justify-content-center">
+            <img src="/images/FizzBuzz/mw1920_fizzbuzzLogo.png" class="img-fluid" />
+            @* <img src="/images/NEWLandingPageLogo.png" class="img-fluid" /> *@
+        </div>
+    </div>
+</div>
