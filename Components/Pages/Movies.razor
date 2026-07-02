@@ -1,0 +1,38 @@
+﻿@page "/movies"
+@using BlazorCodeChallenge.Components.Services
+@inject IJSRuntime JS
+@layout HomeLayout
+
+@inject FooterBrandService FooterBrandService
+@implements IDisposable
+
+<PageTitle>Movie Time</PageTitle>
+
+
+
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        FooterBrandService.SetBrand(new FooterBrand
+        {
+            Label = "Powered By",
+
+            Image = "/images/MovieTime/tmdb_long_logo.png",
+
+            Width = 175,
+
+            Height = 15,
+
+            Alt = "The Movie Database",
+
+            Url = "https://www.themoviedb.org/"
+        });
+    }
+
+    public void Dispose()
+    {
+        FooterBrandService.Reset();
+    }
+}

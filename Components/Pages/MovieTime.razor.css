@@ -1,9 +1,9 @@
 ﻿
 .pageStyle {
-    background: linear-gradient(to right, rgb(181,53,132) 0%, rgba(8,7,102) 40%, rgb(8,7,102) 100%);
-    color: var(--cf-light-color);
+    background: linear-gradient(to right, rgba(181,53,132,.95) 0%, rgba(8,7,102, .80) 40%, rgba(8,7,102, .95) 100%), url("/images/MovieTime/NowPlayingBG.jpg");
 
-/*    background: url(images/Home/LandingPageBG.png);*/
+    color: var(--cf-light-color);
+    /*  background: url(images/Home/LandingPageBG.png);*/
     /*  background: url(images/NEWLandingPageBG.png);*/
     background-repeat: no-repeat;
     background-position: center;
@@ -13,7 +13,7 @@
 .title {
     font-family: var(--cf-title-font);
     font-size: 2rem;
-    /*    color: var(--cf-title-color);*/
+    /*  color: var(--cf-title-color);*/
     color: var(--cf-light-color);
     line-height: 2rem;
 }
@@ -27,11 +27,12 @@
     font-size: 2rem;
 }
 
+/*  Large devices (desktops, 992px and up */
 @media (min-width: 992px) {
     .title {
         font-family: var(--cf-title-font);
         font-size: 3rem;
-        /*        color: var(--cf-title-color);*/
+        /*  color: var(--cf-title-color);*/
         color: var(--cf-light-color);
         line-height: 3rem;
     }

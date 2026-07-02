@@ -5,6 +5,10 @@
     --cf-light-color: #deeefb;
     --cf-font-size: 1.1rem;
     --cf-title-color: var(--cf-dark-color);
+
+    --cf-btn-movie-time-homebg: hsl(60,100%,66%);
+    --cf-btn-movie-time-homehover: hsl(60,100%,46%);
+    --cf-btn-movie-time-homeactive: hsl(60,100%,36%);
 }
 
 html, body {
@@ -20,6 +24,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: var(--cf-title-font);
+}
+
+.btn-movie-time-home {
+    --bs-btn-bg: var(--cf-btn-movie-time-homebg);
+    --bs-btn-border-color: var(--cf-btn-movie-time-homebg);
+    --bs-btn-hover-bg: var(--cf-btn-movie-time-homehover);
+    --bs-btn-hover-border-color: var(--cf-btn-movie-time-homehover);
+    --bs-btn-active-bg: var(--cf-btn-movie-time-homeactive);
+    --bs-btn-active-border-color: var(--cf-btn-movie-time-homeactive);
+    --bs-btn-disabled-bg: var(--cf-btn-movie-time-homebg);
+    --bs-btn-disabled-border-color: var(--cf-btn-movie-time-homebg);
+
+    --bs-btn-hover-color: var(--cf-dark-color);
+    color: var(--cf-dark-color);
 }
 
 #app {
