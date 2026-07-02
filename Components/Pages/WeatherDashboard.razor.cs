@@ -1,4 +1,5 @@
 ﻿using BlazorCodeChallenge.Components.Services;
+using BlazorCodeChallenge.Constants;
 using BlazorCodeChallenge.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -32,20 +33,7 @@ namespace BlazorCodeChallenge.Components.Pages
         {
             base.OnInitialized();
 
-            FooterBrandService.SetBrand(new FooterBrand
-            {
-                Label = "Powered By",
-
-                Image = "/images/NWSDashboard/poweredbyNWS.png",
-
-                Width = 135,
-
-                Height = 45,
-
-                Alt = "National Weather Service Brand",
-
-                Url = "/"
-            });
+            AppState.SetFooterBrand(FooterBrands.NWSDashboard);
         }
 
         /// <summary>
@@ -53,7 +41,7 @@ namespace BlazorCodeChallenge.Components.Pages
         /// </summary>
         public void Dispose()
         {
-            FooterBrandService.Reset();
+            // nothing (preferred long-term)
         }
 
         /// <summary>

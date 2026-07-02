@@ -1,6 +1,11 @@
 ﻿@page "/"
 @inject IJSRuntime JS
+@using BlazorCodeChallenge.Components.Services
+@using BlazorCodeChallenge.Services
 @layout HomeLayout
+
+@inject AppState AppState
+@implements IDisposable
 
 <PageTitle>Blazor Code Challenges - Home</PageTitle>
 

@@ -1,4 +1,5 @@
 using BlazorCodeChallenge.Components.Services;
+using BlazorCodeChallenge.Constants;
 using BlazorCodeChallenge.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -16,20 +17,7 @@ public partial class FizzBuzzValidation
         base.OnInitialized();
         editContext = new EditContext(fizzBuzz);
 
-        FooterBrandService.SetBrand(new FooterBrand
-        {
-            Label = "Powered By",
-
-            Image = "/images/Home/Branding_Img_3F_NBC.png",
-
-            Width = 135,
-
-            Height = 55,
-
-            Alt = "FizzBuzz Brand",
-
-            Url = "/"
-        });
+        AppState.SetFooterBrand(FooterBrands.MagicSquareCode);
     }
 
     /// <summary>
@@ -37,7 +25,7 @@ public partial class FizzBuzzValidation
     /// </summary>
     public void Dispose()
     {
-        FooterBrandService.Reset();
+        // nothing (preferred long-term)
     }
 
     /// <summary>

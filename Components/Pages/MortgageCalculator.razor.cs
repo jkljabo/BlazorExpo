@@ -1,3 +1,5 @@
+using BlazorCodeChallenge.Components.Services;
+using BlazorCodeChallenge.Constants;
 using BlazorCodeChallenge.Helpers;
 using BlazorCodeChallenge.Models;
 using Microsoft.AspNetCore.Components;
@@ -20,20 +22,7 @@ public partial class MortgageCalculator
     {
         base.OnInitialized();
 
-        FooterBrandService.SetBrand(new FooterBrand
-        {
-            Label = "Powered By",
-
-            Image = "/images/Home/Branding_Img_3F_NBC.png",
-
-            Width = 135,
-
-            Height = 55,
-
-            Alt = "Mortgage Loan Calculator Brand",
-
-            Url = "/"
-        });
+        AppState.SetFooterBrand(FooterBrands.MagicSquareCode);
 
         editContext = new EditContext(loan);
 
@@ -48,7 +37,7 @@ public partial class MortgageCalculator
     /// </summary>
     public void Dispose()
     {
-        FooterBrandService.Reset();
+        // nothing (preferred long-term)
     }
 
     private void HandleSubmit()

@@ -7,12 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\Services\ThemeService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.28" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.28" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Components\Validators\" />
+    <Folder Include="Features\" />
+    <Folder Include="Utilities\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

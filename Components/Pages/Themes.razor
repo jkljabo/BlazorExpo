@@ -1,6 +1,7 @@
 ﻿@page "/themes"
 @using BlazorCodeChallenge.Components.Services
-@inject ThemeService ThemeService
+@using BlazorCodeChallenge.Services
+@inject AppState AppState
 @implements IDisposable
 @inject IJSRuntime JS
 @layout HomeLayout
@@ -45,7 +46,7 @@
 
     protected override void OnInitialized()
     {
-        ThemeService.ThemeChanged += Refresh;
+        AppState.StateChanged += Refresh;
     }
 
     private void Refresh()
@@ -55,14 +56,14 @@
 
     public void Dispose()
     {
-        ThemeService.ThemeChanged -= Refresh;
+        AppState.StateChanged -= Refresh;
 
     }
     public async Task ChangeTheme(string theme)
     {
         // setTheme is defined in index.html
         await JS.InvokeVoidAsync("setTheme", theme);
-        ThemeService.SetTheme(theme);
+        AppState.SetTheme(theme);
     }
 
 

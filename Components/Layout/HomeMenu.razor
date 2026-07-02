@@ -1,5 +1,6 @@
 ﻿@using BlazorCodeChallenge.Components.Services
-@inject ThemeService ThemeService
+@using BlazorCodeChallenge.Services
+@inject AppState AppState
 @implements IDisposable
 
 <nav class="navbar navbar-expand-lg navStyle" data-bs-theme="dark">
@@ -50,7 +51,7 @@
                 <li class="nav-item">
                     <NavLink class="nav-link" href="/themes">
                         <i class="bi bi-palette"></i>
-                        <span>Theme - @ThemeService.CurrentTheme</span>
+                        <span>Theme - @AppState.CurrentTheme</span>
                     </NavLink>
                 </li>
             </ul>
@@ -61,7 +62,7 @@
 @code{
     protected override void OnInitialized()
     {
-        ThemeService.ThemeChanged += Refresh;
+        AppState.StateChanged += Refresh;
     }
 
     private void Refresh()
@@ -71,6 +72,6 @@
 
     public void Dispose()
     {
-        ThemeService.ThemeChanged -= Refresh;
+        AppState.StateChanged -= Refresh;
     }
 }
