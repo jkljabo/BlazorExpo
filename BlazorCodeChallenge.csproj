@@ -4,9 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\Services\FooterBrandService.cs" />
     <Compile Remove="Components\Services\ThemeService.cs" />
   </ItemGroup>
 
@@ -16,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Services\" />
     <Folder Include="Components\Validators\" />
     <Folder Include="Features\" />
     <Folder Include="Utilities\" />

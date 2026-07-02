@@ -1,5 +1,4 @@
 using BlazorCodeChallenge;
-using BlazorCodeChallenge.Components.Services;
 using BlazorCodeChallenge.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -10,7 +9,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-builder.Services.AddScoped<FooterBrandService>();
+//builder.Services.AddScoped<FooterBrandService>();
 //builder.Services.AddScoped<ThemeService>();
 
 builder.Services.AddScoped<AppState>();

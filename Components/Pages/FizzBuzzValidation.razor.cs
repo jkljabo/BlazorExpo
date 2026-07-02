@@ -1,4 +1,4 @@
-using BlazorCodeChallenge.Components.Services;
+using BlazorCodeChallenge.Services;
 using BlazorCodeChallenge.Constants;
 using BlazorCodeChallenge.Models;
 using Microsoft.AspNetCore.Components;
