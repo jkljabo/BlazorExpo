@@ -9,6 +9,10 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+builder.Services.AddScoped<TMDBService>();
+builder.Services.AddScoped<MovieFavoritesService>();
+
+
 //builder.Services.AddScoped<FooterBrandService>();
 //builder.Services.AddScoped<ThemeService>();
 

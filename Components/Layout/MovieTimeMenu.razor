@@ -3,6 +3,8 @@
 @inject AppState AppState
 @implements IDisposable
 
+@inject NavigationManager NavManager
+
 <nav class="navbar navbar-expand-lg navStyle" data-bs-theme="dark">
     <div class="container-xxl">
         <a href="/" class="me-3">
@@ -31,42 +33,53 @@
                 </li>
 
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="/mortgagecalculator" Match="NavLinkMatch.All">
-                        <i class="bi bi-cash-coin"></i>
-                        <span>Mortgage Calculator</span>
+                    <NavLink class="nav-link" href="/movies" Match="NavLinkMatch.All">
+                        <i class="bi bi-list"></i>
+                        <span>All Movies</span>
                     </NavLink>
                 </li>
 
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="/fizzbuzz" Match="NavLinkMatch.All">
-                        <i class="bi bi-arrows-expand"></i>
-                        <span>Fizz Buzz</span>
+                    <NavLink class="nav-link" href="/cool-movies" Match="NavLinkMatch.All">
+                        <i class="bi bi-stars"></i>
+                        <span>Cool Movies</span>
                     </NavLink>
                 </li>
+
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="/fizzbuzzvalidation" Match="NavLinkMatch.All">
-                        <i class="bi bi-code"></i>
-                        <span>Fizz Buzz (Validation)</span>
-                    </NavLink>
-                </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="/weatherdashboard">
-                        <i class="bi bi-cloud"></i>
-                        <span>Weather Dashboard</span>
-                    </NavLink>
-                </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="/themes">
-                        <i class="bi bi-palette"></i>
-                        <span>Theme - @AppState.CurrentTheme</span>
+                    <NavLink class="nav-link" href="/favorite-movies" Match="NavLinkMatch.All">
+                        <i class="bi bi-heart-fill"></i>
+                        <span>Favorite Movies</span>
                     </NavLink>
                 </li>
             </ul>
+            <form class="d-flex" role="search">
+                <InputText class="form-control form-control-sm me-2" type="search" placeholder="Search Movies..." aria-label="Search" name="query" @bind-Value="Query"></InputText>
+
+                <button class="btn btn-sm btn-primary" type="button" @onclick="HandleSearch">Search</button>
+                
+            </form>
         </div>
     </div>
 </nav>
 
 @code{
+    private string Query { get; set; } = string.Empty;
+
+    private void HandleSearch()
+    {
+        // Implement search functionality here
+        // Take the value from the form and pass it to the search page
+        
+        // NavManager.NavigateTo("/search");
+        // NavManager.NavigateTo($"/search?query={Uri.EscapeDataString(Query)}");
+        NavManager.NavigateTo(string.IsNullOrEmpty(Query) ? "search" : $"search?query={Query}");
+
+        
+
+        Console.WriteLine($"Searching for: {Query}");
+    }
+
     protected override void OnInitialized()
     {
         AppState.StateChanged += Refresh;

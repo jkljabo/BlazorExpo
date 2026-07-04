@@ -1,4 +1,4 @@
-﻿@page "/movies"
+﻿@page "/cool-movies"
 
 @using BlazorCodeChallenge.Constants
 @using BlazorCodeChallenge.Services
@@ -11,32 +11,32 @@
 
 @inject TMDBService TMDBService
 
-<PageTitle>Movie Time</PageTitle>
+<PageTitle>Cool Movies</PageTitle>
 
 <div class="container-xxl py-3">
     <h1>
-        <i class="bi bi-film text-primary"></i>
-        Movie Listing
+        <i class="bi bi-stars text-primary"></i>
+        Cool Movie Listings
     </h1>
-    <p class="lead italic">Browse movies that are now playing in theaters.</p>
+    <p class="lead italic">Browse the coolest movies in The Movie DataBase.</p>
     
-    @if(movies is null)
+    @if (coolMovies is null)
     {
         <div class="d-flex justify-content-center align-items-center">
-            @if(isLoading) 
+            @if (isLoading)
             {
-                <h2 class="text-muted">Loading movies...</h2>
+                <h2 class="text-muted">Loading cool movies...</h2>
             }
             else
             {
-                <h2 class="text-muted">Failed to load movies...</h2>
+                <h2 class="text-muted">Failed to load cool movies...</h2>
             }
         </div>
     }
     else
     {
         <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-lg-4">
-            @foreach (var movie in movies.Results)
+            @foreach (var movie in coolMovies.Results)
             {
                 <div class="col">
                     <MovieCard Movie="movie" />
@@ -46,5 +46,3 @@
     }
 
 </div>
-
-

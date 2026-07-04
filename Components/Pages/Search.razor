@@ -1,0 +1,64 @@
+﻿@page "/search"
+
+@using BlazorCodeChallenge.Constants
+@using BlazorCodeChallenge.Services
+
+@inject IJSRuntime JS
+@layout MovieTimeLayout
+
+@inject AppState AppState
+@implements IDisposable
+
+@inject TMDBService TMDBService
+
+<div class="container-xxl py-3">
+    <h1>
+        <i class="bi bi-search text-secondary"></i>
+        Search Movies
+    </h1>
+    <p class="lead italic">Search results from The Movie DataBase.</p>
+
+    @if (searchResults is null)
+    {
+        <div class="d-flex justify-content-center align-items-center">
+
+            @if (string.IsNullOrEmpty(Query))
+            {
+                <h2 class="text-muted">Use the search box in nav bar to search for a movie.</h2>
+            }
+            else if (isLoading)
+            {
+                <h2 class="text-muted">Running search...</h2>
+            }
+            else
+            {
+                <h2 class="text-muted">Search failed...</h2>
+            }
+        </div>
+    }
+    else
+    {
+        @if (searchResults.TotalResults == 0)
+        {
+            <div class="d-flex justify-content-center align-items-center py-5">
+                <h2 class="text-muted">
+                    No results found for "@Query". Please try a different search term.  
+                </h2>
+            </div>
+        }
+
+        <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-lg-4">
+            @foreach (var movie in searchResults.Results)
+            {
+                <div class="col">
+                    <MovieCard Movie="movie" />
+                </div>
+            }
+        </div>
+    }
+
+</div>
+
+@code {
+
+}
