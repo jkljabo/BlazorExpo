@@ -1,4 +1,5 @@
-﻿using BlazorCodeChallenge.Models;
+﻿using BlazorCodeChallenge.Constants;
+using BlazorCodeChallenge.Models;
 
 namespace BlazorCodeChallenge.Services
 {
@@ -6,7 +7,9 @@ namespace BlazorCodeChallenge.Services
     {
         public string CurrentTheme { get; private set; } = "gray";
 
-        public FooterBrand CurrentFooterBrand { get; private set; }
+        // Note Code Fix:
+        // public FooterBrand CurrentFooterBrand { get; private set; }
+        public FooterBrand CurrentFooterBrand { get; private set; } = FooterBrands.MagicSquareCode;
 
         public event Action? StateChanged;
 

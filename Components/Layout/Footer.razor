@@ -1,4 +1,5 @@
 ﻿
+@using BlazorCodeChallenge.Constants
 @using BlazorCodeChallenge.Services
 
 @inject AppState AppState
@@ -22,29 +23,31 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center align-items-center gap-2">
+                @{
+                    var brand = AppState.CurrentFooterBrand ?? FooterBrands.MagicSquareCode;
+                }
+                <span>@brand.Label</span>
 
-                <span>@AppState.CurrentFooterBrand.Label</span>
-
-                @if (!string.IsNullOrWhiteSpace(AppState.CurrentFooterBrand.Url))
+                @if (!string.IsNullOrWhiteSpace(brand.Url))
                 {
-                    <a href="@AppState.CurrentFooterBrand.Url"
+                    <a href="@brand.Url"
                        target="_blank">
 
                         @* class="img-fluid" /> Interferes with service setting*@
-                        <img src="@AppState.CurrentFooterBrand.Image"
-                             width="@AppState.CurrentFooterBrand.Width"
-                             height="@AppState.CurrentFooterBrand.Height"
-                             alt="@AppState.CurrentFooterBrand.Alt" />
+                        <img src="@brand.Image"
+                             width="@brand.Width"
+                             height="@brand.Height"
+                             alt="@brand.Alt" />
 
                     </a>
                 }
                 else
                 {
                     @* class="img-fluid" /> Interferes with service setting*@
-                    <img src="@AppState.CurrentFooterBrand.Image"
-                         width="@AppState.CurrentFooterBrand.Width"
-                         height="@AppState.CurrentFooterBrand.Height"
-                         alt="@AppState.CurrentFooterBrand.Alt" />
+                    <img src="@brand.Image"
+                         width="@brand.Width"
+                         height="@brand.Height"
+                         alt="@brand.Alt" />
                 }
 
             </div>

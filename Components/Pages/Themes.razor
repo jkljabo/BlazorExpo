@@ -1,5 +1,6 @@
 ﻿@page "/themes"
 
+@using BlazorCodeChallenge.Constants
 @using BlazorCodeChallenge.Services
 @inject AppState AppState
 @implements IDisposable
@@ -46,7 +47,9 @@
 
     protected override void OnInitialized()
     {
-        AppState.StateChanged += Refresh;
+        AppState.SetFooterBrand(FooterBrands.MagicSquareCode);
+        // Note Code Fix: 
+        // AppState.StateChanged += Refresh;
     }
 
     private void Refresh()
