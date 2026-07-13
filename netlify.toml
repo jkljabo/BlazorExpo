@@ -1,9 +1,9 @@
 [build]
-command = "dotnet publish BlazorCodeChallenge.csproj -c Release"
+command = "dotnet --info && dotnet publish BlazorCodeChallenge.csproj -c Release"
 publish = "bin/Release/net8.0/publish/wwwroot"
 
 [build.environment]
-DOTNET_VERSION = "8.0"
+DOTNET_VERSION = "8.0.422"
 
 [[redirects]]
 from = "/*"
