@@ -1,32 +1,23 @@
 ﻿export default {
-    // Netlify config for routing
-    path: "/TMDB/*",  // This means any request to /TMDB/ will be handled here
-
     async handler(req) {
-        const API_KEY = Deno.env.get("API_KEY");    // from Netlify environment vars
-        const API_URL = Deno.env.get("API_URL");    // e.g., https://api.themoviedb.org/3/
 
-        // Ensure trailing slash if missing
-        let baseUrl = API_URL.endsWith("/")
-            ? API_URL
-            : API_URL + "/";
+        const API_KEY = Deno.env.get("API_KEY");
+        const API_URL = Deno.env.get("API_URL");
 
-        // Example: the user calls /TMDB/movie/popular
-        // Remove '/TMDB' portion so we can forward to actual TMDB endpoint
-        let newUrl = req.url.replace("/TMDB/", "");
+        const url = new URL(req.url);
 
-        // Rebuild the full URL, e.g. https://api.themoviedb.org/3/movie/popular
-        let targetUrl = `${baseUrl}${newUrl}`;
+        // Remove "/tmdb/" from the beginning of the path
+        const endpoint = url.pathname.replace(/^\/tmdb\//i, "");
 
-        // Add your Bearer or Query Parameter auth if needed
-        // This example might look for the "?" to attach &api_key= or Bearer tokens.
+        const targetUrl =
+            `${API_URL.replace(/\/$/, "")}/${endpoint}${url.search}`;
 
-        // Proxy the request with fetch
         const response = await fetch(targetUrl, {
+            method: req.method,
             headers: {
-                Authorization: `Bearer ${API_KEY}`
-            },
-            method: req.method
+                Authorization: `Bearer ${API_KEY}`,
+                Accept: "application/json"
+            }
         });
 
         return new Response(response.body, {
@@ -34,4 +25,4 @@
             headers: response.headers
         });
     }
-}
+};
