@@ -17,25 +17,16 @@
 		
 3. Verify Git status:
 	git status
-	
+						
 	Results: 
-		On branch main
-		Your branch is up to date with 'origin/main'.
-
-		Untracked files:
-		(use "git add <file>..." to include in what will be committed)
-        BlazorExpo Deployment Runbook v1.0
-        docs/DeploymentBaseline.md
-
-		nothing added to commit but untracked files present (use "git add" to track)
-		
-		Note: This includes this document as well as stubbed documents we haven't created or completed yet.
+        On branch main 
+        Your branch is up to date with 'origin/main'.
+        nothing to commit, working tree clean
 		
 4. Push latest commit:
 	git push origin main
 	
-	Results: origin/main up to date with exception of above items.
-		GitHub should now represent the exact code we intend to deploy.
+	Results: Everything up-to-date
 
 Phase 2 - Repository Verification (GitHub)
 
@@ -92,7 +83,7 @@ Phase 4 - Build Settings
 	Jabo's BlazorExpo
 	
 	Results:
-		Change to Netlify Team at a later date.
+		Change to 'Netlify Team' at a later date.
 	
 2. Project name:
 	jasonlittle-dev
