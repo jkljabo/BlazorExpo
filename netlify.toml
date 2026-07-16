@@ -10,11 +10,6 @@ function = "tmdb"
 path = "/tmdb/*"
 
 [[redirects]]
-from = "/tmdb/*"
-to = "/tmdb/:splat"
-status = 200
-
-[[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200

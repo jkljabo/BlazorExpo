@@ -60,6 +60,7 @@ Phase 2.5 - Netlify Compliance
 	Looks compliant.
 	Results:
 		We're intentionally allowing the SDK to roll forward.
+        The project targets SDK 8.0.422 locally. Netlify is configured independently through DOTNET_VERSION to use a compatible .NET 8 SDK available in its build environment.
 
 3. tmdb.js
 	Not yet compliant
