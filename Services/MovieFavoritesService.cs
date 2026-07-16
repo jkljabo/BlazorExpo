@@ -7,7 +7,7 @@ namespace BlazorCodeChallenge.Services
 {
     public class MovieFavoritesService(IJSRuntime jsRuntime)
     {
-        private readonly string _localStorageKey = "MovieFavorites";
+        private const string LocalStorageKey = "MovieFavorites";
 
         /// <summary>
         /// GetFavoriteMoviesAsync: Retrieves the list of favorite movies from local storage.
@@ -15,20 +15,22 @@ namespace BlazorCodeChallenge.Services
         /// <returns></returns>
         public async Task<List<Movie>> GetFavoriteMoviesAsync()
         {
-            List<Movie> movies = [];
-
             try
             {
-                var json = await jsRuntime.InvokeAsync<string>("localStorage.getItem", _localStorageKey);
-                movies = JsonSerializer.Deserialize<List<Movie>>(json) ?? [];
+                var json = await jsRuntime.InvokeAsync<string?>(
+                    "localStorage.getItem",
+                    LocalStorageKey);
 
+                if (string.IsNullOrWhiteSpace(json))
+                    return [];
+
+                return JsonSerializer.Deserialize<List<Movie>>(json) ?? [];
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving favorite movies: {ex.Message}");
+                return [];
             }
-
-            return movies;
         }
 
         /// <summary>
@@ -41,7 +43,7 @@ namespace BlazorCodeChallenge.Services
             try
             {
                 var json = JsonSerializer.Serialize(movies);
-                await jsRuntime.InvokeVoidAsync("localStorage.setItem", _localStorageKey, json);
+                await jsRuntime.InvokeVoidAsync("localStorage.setItem", LocalStorageKey, json);
             }
             catch (Exception ex)
             {
