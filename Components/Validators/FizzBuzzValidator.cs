@@ -6,10 +6,10 @@ namespace BlazorCodeChallenge.Components.Validators
 {
     public class FizzBuzzValidator : ComponentBase
     {
-        private ValidationMessageStore validationMessageStore;
+        private ValidationMessageStore validationMessageStore = null!;
 
         [CascadingParameter]
-        private EditContext CurrentEditContext { get; set; }
+        private EditContext CurrentEditContext { get; set; } = null!;
 
         protected override void OnInitialized()
         {

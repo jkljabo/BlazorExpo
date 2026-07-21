@@ -10,7 +10,7 @@ public partial class FizzBuzzValidation
 {
     private FizzBuzzModel fizzBuzz = new();
     private List<string> fizzBuzzResults = new();
-    private EditContext editContext;
+    private EditContext editContext = null!;
 
     protected override void OnInitialized()
     {

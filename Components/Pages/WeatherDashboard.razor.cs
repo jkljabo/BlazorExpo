@@ -75,45 +75,37 @@ namespace BlazorCodeChallenge.Components.Pages
         /// <returns>A tuple containing the latitude and longitude as double values.</returns>
         private async Task<(double lat, double lon)> LookupCoordinates()
         {
-            try
-            {
-                var address =
+            var address =
                 !string.IsNullOrWhiteSpace(ZipCode)
                     ? ZipCode
                     : $"{City}, {State}";
 
-                Http.DefaultRequestHeaders.Clear();
+            Http.DefaultRequestHeaders.Clear();
 
-                Http.DefaultRequestHeaders.Add(
-                    "User-Agent",
-                    "BlazorWeatherDashboard/1.0");
+            Http.DefaultRequestHeaders.Add(
+                "User-Agent",
+                "BlazorWeatherDashboard/1.0");
 
 
-                var url =
-                    $"https://nominatim.openstreetmap.org/search" +
-                    $"?q={Uri.EscapeDataString(address)}" +
-                    $"&countrycodes=us" +
-                    $"&format=jsonv2";
+            var url =
+                $"https://nominatim.openstreetmap.org/search" +
+                $"?q={Uri.EscapeDataString(address)}" +
+                $"&countrycodes=us" +
+                $"&format=jsonv2";
 
-                var result = await Http.GetFromJsonAsync<List<NominatimLocation>>(url);
+            var result = await Http.GetFromJsonAsync<List<NominatimLocation>>(url);
 
-                var location = result?.FirstOrDefault();
+            var location = result?.FirstOrDefault();
 
-                if (location == null)
-                {
-                    throw new Exception("Location not found.");
-                }
-
-                return (
-                    double.Parse(location.Lat),
-                    double.Parse(location.Lon)
-                );
-
-            }
-            catch (Exception ex)
+            if (location == null)
             {
-                throw;
+                throw new Exception("Location not found.");
             }
+
+            return (
+                double.Parse(location.Lat),
+                double.Parse(location.Lon)
+            );
         }
 
         /// <summary>

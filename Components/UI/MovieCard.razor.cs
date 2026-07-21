@@ -7,8 +7,11 @@ namespace BlazorCodeChallenge.Components.UI
 {
     public partial class MovieCard
     {
-        [Parameter,EditorRequired] public Movie? Movie { get; set; }
-        [Parameter] public EventCallback OnChange { get; set; }
+        [Parameter, EditorRequired]
+        public Movie Movie { get; set; } = null!;
+
+        [Parameter] 
+        public EventCallback OnChange { get; set; }
 
         bool isFavorite;
 
