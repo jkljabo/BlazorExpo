@@ -1,6 +1,8 @@
 ﻿# BlazorExpo
 
-BlazorExpo is a .NET 8 Blazor WebAssembly portfolio application showcasing modern application development, cloud integration, secure API architecture, and automated deployment practices.
+![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet) ![Blazor](https://img.shields.io/badge/Blazor-WebAssembly-512BD4?logo=blazor) ![Netlify](https://img.shields.io/badge/Hosted%20on-Netlify-00C7B7?logo=netlify) ![GitHub Tag](https://img.shields.io/github/v/tag/jkljabo/BlazorExpo?label=Release)
+
+BlazorExpo is an enterprise-style Blazor WebAssembly application demonstrating modern .NET development practices, cloud-native architecture, secure API integration, and production deployment workflows. It serves as both a functional application suite and the flagship project of the Engineering Showcase Suite.
 
 The application brings together several interactive projects within a single Blazor WebAssembly application and serves as both a technical demonstration and an evolving software engineering portfolio.
 
@@ -8,27 +10,86 @@ The application brings together several interactive projects within a single Bla
 
 BlazorExpo is publicly deployed on Netlify:
 
-[View BlazorExpo](https://jasonlittle-dev.netlify.app)
+<img width="1470" height="963" alt="BlazorExpo application home page" src="https://github.com/user-attachments/assets/e7b6a293-10eb-4c4f-be05-7b78d8fe63a8" />
+
+**[Launch BlazorExpo](https://jasonlittle-dev.netlify.app)**
 
 ## Featured Applications
 
 ### Weather Dashboard
 
-A weather application that retrieves location and forecast data from external APIs and presents current weather information through an interactive Blazor interface.
+#### Purpose
+
+Provides location-based weather forecasts using live government and geolocation APIs.
+
+#### Technical Highlights
+
+- REST API integration
+- Dependency injection
+- Asynchronous programming
+- Geolocation and geocoding
+- JSON serialization and parsing
+- Service-oriented application design
+
+<img width="1469" height="964" alt="Weather Dashboard displaying location-based forecast information" src="https://github.com/user-attachments/assets/23ff77ca-c87f-4896-8dbe-d1d0817df703" />
 
 ### Loan Shark
 
-A mortgage calculator that calculates monthly payments and generates an amortization/payment schedule based on user-provided loan information.
+#### Purpose
+
+Provides an interactive mortgage calculator that calculates monthly payments and generates a complete loan amortization schedule.
+
+#### Technical Highlights
+
+- Financial calculation algorithms
+- C# business logic
+- Blazor component interaction
+- User input validation
+- Data binding
+- Dynamic UI rendering
+- Amortization schedule generation
+
+<img width="1469" height="964" alt="Loan Shark mortgage calculator and payment schedule" src="https://github.com/user-attachments/assets/6277179c-aa85-491b-8768-1d367d5d92af" />
 
 ### FizzBuzz
 
-An interactive implementation of the classic FizzBuzz programming exercise demonstrating application logic, validation, and Blazor component interaction.
+#### Purpose
+
+Provides an interactive implementation of the classic FizzBuzz programming challenge while demonstrating validation, component interaction, and application logic within Blazor.
+
+#### Technical Highlights
+
+- C# conditional logic
+- Blazor component lifecycle
+- Form handling
+- Custom validation
+- Data binding
+- User input validation
+- Dynamic UI rendering
+
+<img width="1495" height="992" alt="FizzBuzz interactive application" src="https://github.com/user-attachments/assets/9d6ddc35-579f-4077-bef7-6a4e7b2816f9" />
 
 ### Movie Time
 
-A movie discovery application powered by The Movie Database (TMDB).
+#### Purpose
 
-Features include:
+Provides a movie discovery experience powered by The Movie Database (TMDB), allowing users to browse, search, explore, and save favorite movies.
+
+#### Technical Highlights
+
+- REST API integration
+- Asynchronous service calls
+- Dependency injection
+- Browser local storage
+- JavaScript interoperability
+- Secure API credential management
+- Netlify Edge Functions
+- Serverless API proxy architecture
+- Environment-based secret management
+
+<img width="1496" height="994" alt="Movie Time movie discovery dashboard" src="https://github.com/user-attachments/assets/1c6f4a72-b269-48cf-b711-e9ca0c34b306" />
+
+#### Features
 
 - Browse currently playing movies
 - Search for movies
@@ -36,6 +97,10 @@ Features include:
 - View movie trailers
 - Manage favorite movies using browser local storage
 - Secure TMDB API access through a Netlify Edge Function
+
+<img width="1495" height="722" alt="Movie Time currently playing movie results" src="https://github.com/user-attachments/assets/912097d8-99d6-4c16-8362-0cf7e4b0a032" />
+
+<img width="1492" height="994" alt="Movie Time favorite movies interface" src="https://github.com/user-attachments/assets/5b11f24a-d8eb-4f87-ae21-0985e733edcc" />
 
 ## Technology Stack
 
@@ -64,6 +129,72 @@ Features include:
 - GitHub-integrated continuous deployment
 - Environment-based secret management
 - Serverless Edge Functions
+
+## Local Development
+
+### Prerequisites
+
+To build and run BlazorExpo locally, install:
+
+- .NET 8 SDK
+- Git
+- Visual Studio 2022, Visual Studio Code, or another .NET-compatible development environment
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/jkljabo/BlazorExpo.git
+cd BlazorExpo
+```
+
+### Configure Local Development Settings
+
+BlazorExpo uses a local development configuration file for credentials that should not be committed to source control.
+
+An example configuration file is provided at:
+
+```text
+wwwroot/appsettings.Development.example.json
+```
+
+Create a local copy named:
+
+```text
+wwwroot/appsettings.Development.json
+```
+
+and provide your TMDB API access token in the configuration.
+
+The local `appsettings.Development.json` file is excluded from Git through `.gitignore` to prevent credentials from being committed to the repository.
+
+> Never commit API keys, access tokens, passwords, or other secrets to source control.
+
+### Restore and Build
+
+Restore dependencies and build the application:
+
+```bash
+dotnet restore BlazorCodeChallenge.csproj
+dotnet build BlazorCodeChallenge.csproj
+```
+
+A successful build should complete with no build errors.
+
+### Run the Application
+
+Start the application locally with:
+
+```bash
+dotnet run --project BlazorCodeChallenge.csproj
+```
+
+The development server will display the local application URL in the console.
+
+### Local vs. Deployed API Configuration
+
+During local development, Movie Time can use the TMDB access token provided through the local development configuration.
+
+In the deployed Netlify environment, protected TMDB credentials are not exposed to the Blazor WebAssembly client. Requests requiring authentication are routed through a Netlify Edge Function, where the API credential is supplied through environment-based secret management.
 
 ## Architecture
 
@@ -175,11 +306,11 @@ Documents:
 
 ## Release Status
 
-**Current Release:** RC1 (Sprint 1)
+**Current Release:** `v1.0.0-rc1` (Sprint 1 Release Candidate)
 
 Sprint 1 established the initial deployment and operational baseline for BlazorExpo.
 
-RC1 includes:
+`v1.0.0-rc1` includes:
 
 - Automated GitHub-to-Netlify deployments
 - Secure TMDB API integration through a Netlify Edge Function
@@ -188,7 +319,7 @@ RC1 includes:
 - Centralized Netlify deployment and routing configuration
 - Operational and engineering documentation
 
-BlazorExpo RC1 provides the stable foundation for continued development in Sprint 2.
+BlazorExpo `v1.0.0-rc1` provides the stable foundation for continued development in Sprint 2.
 
 ## Roadmap
 
