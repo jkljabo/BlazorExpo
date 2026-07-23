@@ -60,7 +60,8 @@ Using GitHub as the deployment source provides version control, traceability, au
 ### Impact
 
 - Every deployment is associated with a specific commit.
-- Netlify automatically deploys changes pushed to the `main` branch.
+- Netlify automatically deploys changes promoted and pushed to the `main` branch.
+- Development branches can be pushed to GitHub without triggering production deployments.
 - Rollbacks can be performed by redeploying a previous commit.
 - Local builds are no longer considered deployment artifacts.
 
@@ -98,7 +99,7 @@ Netlify provides seamless GitHub integration, automated deployments, environment
 
 ### Impact
 
-- GitHub pushes automatically trigger deployments.
+- Changes pushed to the production `main` branch automatically trigger Netlify deployments.
 - Environment variables remain server-side.
 - No dedicated application server is required.
 - Deployment complexity is significantly reduced.
@@ -307,8 +308,66 @@ Deployment procedures and architectural decisions are as important as the source
 - Historical record of engineering decisions.
 - Repeatable release process.
 
+## EDR-008
+
+### Status
+Accepted
+
+### Title
+
+Development and Release Branch Strategy
+
+### Date
+
+July 2026
+
+### Problem
+
+Active development was being performed directly against the `main` branch, which also serves as the Netlify production deployment branch.
+
+This coupled normal development activity with production deployment and caused routine pushes to consume Netlify build and deployment resources. A controlled separation between active development and production releases was needed.
+
+### Alternatives Considered
+
+- Continue development directly on `main`
+- Use feature branches that merge directly into `main`
+- Introduce a `develop` integration branch with optional feature branches and reserve `main` for production releases
+
+### Decision
+
+BlazorExpo uses `develop` as the integration branch for active development and Sprint work.
+
+The `main` branch represents production-ready code and remains the only branch configured for Netlify production deployment.
+
+Feature branches may be created for isolated development tasks and integrated into `develop` after local validation.
+
+The release flow is:
+
+```text
+feature/* → develop → validation → main → Netlify → production smoke test
+```
+
+### Rationale
+
+Separating development from the production branch establishes a clear release boundary while allowing work to remain version-controlled and backed up remotely.
+
+The strategy supports incremental development, local verification, controlled production promotion, and more efficient use of limited hosting and deployment resources.
+
+### Impact
+
+- Active Sprint development occurs on `develop` or `feature/*` branches.
+- Development work can be pushed to GitHub without triggering Netlify production deployments.
+- `main` remains synchronized with the production release state.
+- Promotion to `main` becomes an intentional release operation.
+- Netlify Branch Deploys are disabled.
+- Netlify Deploy Previews are disabled.
+- Production deployments are reserved for validated release candidates.
+- Deployment resources can be managed more efficiently.
+
 ## Conclusion
 
-The decisions recorded in this document establish the engineering baseline for BlazorExpo Release Candidate 1.
+The decisions recorded in this document establish and maintain the engineering baseline for BlazorExpo.
 
-Future Engineering Decision Records should build upon these decisions while preserving the historical context that led to the current architecture.
+EDR-001 through EDR-007 preserve the architectural and operational decisions established for Release Candidate 1 during Sprint 1. EDR-008 extends that baseline with the development and production release strategy introduced during Sprint 2.
+
+Future Engineering Decision Records should build upon these decisions while preserving the historical context that led to the current architecture and operational model.
