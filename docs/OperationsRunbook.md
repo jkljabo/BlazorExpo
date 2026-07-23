@@ -1485,12 +1485,17 @@ Completed Sprint 2 improvements include:
 - Disabled Netlify Branch Deploys.
 - Disabled Netlify Deploy Previews.
 - Established local validation as the primary development verification process.
+- Added in-memory caching to `MovieFavoritesService` to reduce repeated `localStorage` access while preserving browser persistence.
 - Introduced deployment-resource-aware release procedures.
 - Expanded the Operations Runbook to document the Sprint 2 release workflow.
 
 ### Current Sprint 2 State
 
 The application currently has a verified local Release build and publish baseline.
+
+Movie Time favorites now use an in-memory cache for the lifetime of `MovieFavoritesService`. Favorites are loaded from browser `localStorage` when the cache is first initialized, subsequent favorite lookups use the cached collection, and changes are persisted back to `localStorage`.
+
+The Movie Favorites caching change was validated through a clean Release build, successful Release publish, functional smoke testing, and browser developer-tools verification.
 
 The Netlify `wasm-tools` installation succeeds; however, the observed Netlify publish process continues to report that publishing occurs without WebAssembly optimizations. This behavior is treated as non-blocking and remains available for future investigation.
 
@@ -1525,7 +1530,6 @@ Future investigation may determine why the Netlify publish environment does not 
 Potential future improvements include:
 
 - Investigate the remaining Netlify WebAssembly optimization behavior.
-- Cache Movie Time favorites in memory to reduce repeated localStorage access.
 - Continue improving automated local validation before production promotion.
 - Evaluate additional application performance optimizations where measurable benefits exist.
 - Expand operational documentation as the release process evolves.
@@ -1567,6 +1571,7 @@ At the current Sprint 2 baseline:
 - Netlify Branch Deploys are disabled.
 - Netlify Deploy Previews are disabled.
 - TMDB credentials remain protected by the Netlify Edge Function.
+- Movie Time favorites use an in-memory cache backed by browser `localStorage` persistence.
 - Local validation is the primary development verification process.
 - Production deployment resources are intentionally conserved.
 - The remaining WebAssembly optimization message is documented as non-blocking.
