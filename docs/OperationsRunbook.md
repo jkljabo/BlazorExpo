@@ -63,7 +63,38 @@ The `develop` branch is the integration branch for active Sprint development. Th
 
 ## Phase 1 - Local Verification
 
-All development changes must pass local verification before they are considered eligible for integration or production promotion.
+All development changes must pass appropriate local verification before they are considered eligible for integration or production promotion.
+
+Feature-branch development may use the individual validation gates documented in this phase. After changes have been integrated into `develop`, the automated Release validation script provides the standard release-candidate validation workflow.
+
+### Automated Release Validation
+
+The standard local Release validation workflow is automated by:
+
+```powershell
+.\scripts\validate-release.ps1
+```
+
+The validation script performs the primary local release gates in a consistent sequence:
+
+- Verifies that validation is being performed from the `develop` branch.
+- Verifies that the required `wasm-tools` workload is installed.
+- Cleans the Release build output.
+- Restores project dependencies.
+- Performs a Release build.
+- Performs a Release publish.
+- Runs `git diff --check`.
+- Verifies that the expected publish directory was produced.
+
+A successful validation concludes with:
+
+```text
+RELEASE VALIDATION PASSED
+```
+
+The automated script is the standard validation entry point when preparing a release candidate on `develop`.
+
+The individual procedures below document the underlying validation gates and remain available for manual verification, troubleshooting, and diagnostic use.
 
 ### 1. Verify the Current Branch
 
@@ -1382,17 +1413,17 @@ Determine whether the failure can be reproduced locally first.
 
 Return corrective work to `develop` or an appropriate `feature/*` branch.
 
-Run the normal local validation sequence:
+After corrective changes have been integrated into `develop`, run the automated local Release validation:
 
 ```powershell
-dotnet clean BlazorCodeChallenge.csproj -c Release
-dotnet restore BlazorCodeChallenge.csproj
-dotnet build BlazorCodeChallenge.csproj -c Release
-dotnet publish BlazorCodeChallenge.csproj -c Release
-git diff --check
+.\scripts\validate-release.ps1
 ```
 
-The corrected release candidate must pass the normal release gates before another production promotion is attempted.
+The automated validation must complete successfully before another production promotion is attempted.
+
+If a validation gate fails or additional diagnosis is required, use the individual Phase 1 validation procedures to isolate and investigate the failure.
+
+The corrected release candidate must pass all normal release gates before another production promotion is attempted.
 
 ### 3. Production Functional Failure
 
@@ -1428,7 +1459,7 @@ After the problem has been corrected:
 1. Validate the fix locally.
 2. Commit the corrective work to the appropriate development branch.
 3. Integrate the correction into `develop` if necessary.
-4. Repeat the Release build and publish validation.
+4. Run the automated local Release validation from `develop`.
 5. Review the release diff.
 6. Promote the corrected release candidate to `main` only after it passes the normal release gates.
 7. Perform the complete production smoke test again.
@@ -1485,6 +1516,8 @@ Completed Sprint 2 improvements include:
 - Disabled Netlify Branch Deploys.
 - Disabled Netlify Deploy Previews.
 - Established local validation as the primary development verification process.
+- Added `scripts/validate-release.ps1` to automate the standard local Release validation workflow.
+- Removed the obsolete `netlify.build.sh` script after confirming that `netlify.toml` is the authoritative Netlify production build configuration.
 - Added in-memory caching to `MovieFavoritesService` to reduce repeated `localStorage` access while preserving browser persistence.
 - Introduced deployment-resource-aware release procedures.
 - Expanded the Operations Runbook to document the Sprint 2 release workflow.
@@ -1530,10 +1563,9 @@ Future investigation may determine why the Netlify publish environment does not 
 Potential future improvements include:
 
 - Investigate the remaining Netlify WebAssembly optimization behavior.
-- Continue improving automated local validation before production promotion.
+- Evaluate additional automated validation and testing where it provides meaningful release confidence.
 - Evaluate additional application performance optimizations where measurable benefits exist.
 - Expand operational documentation as the release process evolves.
-- Introduce additional automated testing where it provides meaningful release confidence.
 
 ### Operational Priority
 
@@ -1570,8 +1602,10 @@ At the current Sprint 2 baseline:
 - `main` is reserved for production-ready releases.
 - Netlify Branch Deploys are disabled.
 - Netlify Deploy Previews are disabled.
+- `netlify.toml` is the authoritative Netlify production build configuration; the obsolete `netlify.build.sh` script has been removed.
 - TMDB credentials remain protected by the Netlify Edge Function.
 - Movie Time favorites use an in-memory cache backed by browser `localStorage` persistence.
+- `scripts/validate-release.ps1` provides the standard automated local Release validation workflow.
 - Local validation is the primary development verification process.
 - Production deployment resources are intentionally conserved.
 - The remaining WebAssembly optimization message is documented as non-blocking.
