@@ -21,9 +21,17 @@ namespace BlazorCodeChallenge.Components.Pages
             try
             {
                 isLoading = true;
-                movie = await TMDBService.GetMovieByIdAsync(MovieId);
-                trailer = await TMDBService.GetMovieTrailerAsync(MovieId);
-                credits = await TMDBService.GetMovieCreditsAsync(MovieId);
+
+                var movieTask = TMDBService.GetMovieByIdAsync(MovieId);
+                var trailerTask = TMDBService.GetMovieTrailerAsync(MovieId);
+                var creditsTask = TMDBService.GetMovieCreditsAsync(MovieId);
+
+                await Task.WhenAll(movieTask, trailerTask, creditsTask);
+
+                movie = await movieTask;
+                trailer = await trailerTask;
+                credits = await creditsTask;
+
                 actors = credits?.Cast ?? [];
             }
             catch (Exception ex)
