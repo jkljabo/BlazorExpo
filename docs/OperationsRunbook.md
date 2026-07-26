@@ -1519,6 +1519,7 @@ Completed Sprint 2 improvements include:
 - Added `scripts/validate-release.ps1` to automate the standard local Release validation workflow.
 - Removed the obsolete `netlify.build.sh` script after confirming that `netlify.toml` is the authoritative Netlify production build configuration.
 - Added in-memory caching to `MovieFavoritesService` to reduce repeated `localStorage` access while preserving browser persistence.
+- Updated the Movie Details page to load movie details, trailer information, and credits concurrently rather than sequentially.
 - Introduced deployment-resource-aware release procedures.
 - Expanded the Operations Runbook to document the Sprint 2 release workflow.
 
@@ -1529,6 +1530,10 @@ The application currently has a verified local Release build and publish baselin
 Movie Time favorites now use an in-memory cache for the lifetime of `MovieFavoritesService`. Favorites are loaded from browser `localStorage` when the cache is first initialized, subsequent favorite lookups use the cached collection, and changes are persisted back to `localStorage`.
 
 The Movie Favorites caching change was validated through a clean Release build, successful Release publish, functional smoke testing, and browser developer-tools verification.
+
+The Movie Details page now initiates the movie details, trailer, and credits requests concurrently and waits for all three operations to complete before assigning the results for rendering. This removes the previous sequential request pattern while preserving the existing page behavior.
+
+The concurrent Movie Details loading change was validated through a Release build with zero warnings and zero errors, functional browser smoke testing, and browser Network verification. The movie details, trailer, and credits requests all completed successfully with HTTP 200 responses and were observed executing concurrently. No specific timing improvement is claimed because a controlled before-and-after performance benchmark was not performed.
 
 The Netlify `wasm-tools` installation succeeds; however, the observed Netlify publish process continues to report that publishing occurs without WebAssembly optimizations. This behavior is treated as non-blocking and remains available for future investigation.
 
@@ -1607,6 +1612,7 @@ At the current Sprint 2 baseline:
 - `netlify.toml` is the authoritative Netlify production build configuration; the obsolete `netlify.build.sh` script has been removed.
 - TMDB credentials remain protected by the Netlify Edge Function.
 - Movie Time favorites use an in-memory cache backed by browser `localStorage` persistence.
+- Movie Details loads its independent movie details, trailer, and credits requests concurrently.
 - `scripts/validate-release.ps1` provides the standard automated local Release validation workflow.
 - Local validation is the primary development verification process.
 - Production deployment resources are intentionally conserved.
