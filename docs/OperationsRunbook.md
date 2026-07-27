@@ -1527,7 +1527,9 @@ Completed Sprint 2 improvements include:
 - Removed the obsolete `netlify.build.sh` script after confirming that `netlify.toml` is the authoritative Netlify production build configuration.
 - Added in-memory caching to `MovieFavoritesService` to reduce repeated `localStorage` access while preserving browser persistence.
 - Established an xUnit unit-test project for automated application testing.
-- Added six automated tests covering the `MovieFavoritesService` favorites and caching behavior.
+- Established automated service coverage with six `MovieFavoritesService` tests and nine `TMDBService` tests.
+- Added TMDB service coverage for movie retrieval, search request construction, image-path handling, movie details, and trailer selection.
+- Identified and corrected a null-handling defect in TMDB trailer selection through automated testing.
 - Integrated the automated test suite into `scripts/validate-release.ps1` as a required Release validation gate.
 - Updated the Movie Details page to load movie details, trailer information, and credits concurrently rather than sequentially.
 - Introduced deployment-resource-aware release procedures.
@@ -1543,9 +1545,15 @@ The Movie Favorites caching change was validated through a clean Release build, 
 
 An automated unit-test baseline has been established for `MovieFavoritesService`. The current suite contains six xUnit tests covering local-storage loading, in-memory caching, favorite addition and removal, duplicate prevention, and favorite-state lookup.
 
+Automated coverage has been expanded to `TMDBService`. Nine TMDB service tests now cover movie retrieval, search request construction and query escaping, image-path transformation and fallback behavior, movie-detail handling, and trailer selection.
+
+The TMDB trailer tests identified a null-handling defect in `GetMovieTrailerAsync` when returned video metadata contained a null `site` or `type`. The trailer-selection predicate was updated to ignore incomplete video metadata safely while continuing to select valid YouTube trailers.
+
+The complete automated test suite currently contains fifteen tests: six `MovieFavoritesService` tests and nine `TMDBService` tests. All fifteen tests pass in the Release configuration.
+
 The automated test suite has been integrated into the standard local Release validation workflow. Release validation now restores the complete solution and executes the test project after the Release build and before publishing. A test failure prevents the validation workflow from proceeding to the publish stage.
 
-The integrated validation workflow has been executed successfully with all six automated tests passing.
+The integrated validation workflow has been executed successfully with all fifteen automated tests passing.
 
 The Movie Details page now initiates the movie details, trailer, and credits requests concurrently and waits for all three operations to complete before assigning the results for rendering. This removes the previous sequential request pattern while preserving the existing page behavior.
 
@@ -1555,7 +1563,7 @@ The Netlify `wasm-tools` installation succeeds; however, the observed Netlify pu
 
 Production deployment capacity is currently being conserved. Development work should continue on `develop` or `feature/*` branches and should not be promoted to `main` until an intentional production release is warranted.
 
-The automated local Release validation workflow has been executed successfully from `develop`. The validation confirmed the required `wasm-tools` workload, completed clean, solution restore, Release build, automated test, and Release publish operations, verified zero build warnings and zero build errors, confirmed all six automated tests passed, confirmed WebAssembly assembly-size optimization during local publishing, passed the Git whitespace check, and verified the expected publish output directory.
+The automated local Release validation workflow has been executed successfully from `develop`. The validation confirmed the required `wasm-tools` workload, completed clean, solution restore, Release build, automated test, and Release publish operations, verified zero build warnings and zero build errors, confirmed all fifteen automated tests passed, confirmed WebAssembly assembly-size optimization during local publishing, passed the Git whitespace check, and verified the expected publish output directory.
 
 ## Known Issues and Future Improvements
 
@@ -1620,7 +1628,9 @@ Production deployments should remain intentional release events rather than rout
 At the current Sprint 2 baseline:
 
 - An xUnit test project provides the automated unit-test foundation.
-- Six automated tests currently cover `MovieFavoritesService` favorites and caching behavior.
+- Fifteen automated tests currently provide service-level coverage: six for `MovieFavoritesService` and nine for `TMDBService`.
+- TMDB service tests cover movie retrieval, search behavior, image handling, movie details, and trailer selection.
+- Automated testing has identified and prevented regression of incomplete TMDB trailer metadata handling.
 - Automated tests are a required gate in `scripts/validate-release.ps1`.
 - Release builds complete with zero warnings and zero errors.
 - Local Release publishing succeeds.
