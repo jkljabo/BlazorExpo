@@ -80,8 +80,9 @@ The validation script performs the primary local release gates in a consistent s
 - Verifies that validation is being performed from the `develop` branch.
 - Verifies that the required `wasm-tools` workload is installed.
 - Cleans the Release build output.
-- Restores project dependencies.
+- Restores solution dependencies.
 - Performs a Release build.
+- Runs the automated test suite.
 - Performs a Release publish.
 - Runs `git diff --check`.
 - Verifies that the expected publish directory was produced.
@@ -120,7 +121,7 @@ dotnet clean BlazorCodeChallenge.csproj -c Release
 ### 3. Restore Dependencies
 
 ```powershell
-dotnet restore BlazorCodeChallenge.csproj
+dotnet restore BlazorExpo.sln
 ```
 
 ### 4. Perform a Release Build
@@ -139,7 +140,13 @@ Build succeeded.
 
 A Release build containing compiler warnings or errors does not satisfy the Sprint 2 quality gate.
 
-### 5. Perform a Release Publish
+### 5. Run Automated Tests
+
+```powershell
+dotnet test tests/BlazorCodeChallenge.Tests/BlazorCodeChallenge.Tests.csproj -c Release --no-restore
+```
+
+### 6. Perform a Release Publish
 
 ```powershell
 dotnet publish BlazorCodeChallenge.csproj -c Release
@@ -157,7 +164,7 @@ The published Blazor WebAssembly application is located under:
 bin/Release/net8.0/publish/wwwroot
 ```
 
-### 6. Verify Git State
+### 7. Verify Git State
 
 ```powershell
 git status
@@ -171,7 +178,7 @@ Before committing:
 - Confirm `git diff --check` reports no whitespace errors.
 - Confirm no secrets or local configuration files are being committed.
 
-### 7. Commit and Push Development Work
+### 8. Commit and Push Development Work
 
 Validated Sprint work is committed and pushed to `develop` or the appropriate `feature/*` branch.
 
@@ -1519,6 +1526,9 @@ Completed Sprint 2 improvements include:
 - Added `scripts/validate-release.ps1` to automate the standard local Release validation workflow.
 - Removed the obsolete `netlify.build.sh` script after confirming that `netlify.toml` is the authoritative Netlify production build configuration.
 - Added in-memory caching to `MovieFavoritesService` to reduce repeated `localStorage` access while preserving browser persistence.
+- Established an xUnit unit-test project for automated application testing.
+- Added six automated tests covering the `MovieFavoritesService` favorites and caching behavior.
+- Integrated the automated test suite into `scripts/validate-release.ps1` as a required Release validation gate.
 - Updated the Movie Details page to load movie details, trailer information, and credits concurrently rather than sequentially.
 - Introduced deployment-resource-aware release procedures.
 - Expanded the Operations Runbook to document the Sprint 2 release workflow.
@@ -1531,6 +1541,12 @@ Movie Time favorites now use an in-memory cache for the lifetime of `MovieFavori
 
 The Movie Favorites caching change was validated through a clean Release build, successful Release publish, functional smoke testing, and browser developer-tools verification.
 
+An automated unit-test baseline has been established for `MovieFavoritesService`. The current suite contains six xUnit tests covering local-storage loading, in-memory caching, favorite addition and removal, duplicate prevention, and favorite-state lookup.
+
+The automated test suite has been integrated into the standard local Release validation workflow. Release validation now restores the complete solution and executes the test project after the Release build and before publishing. A test failure prevents the validation workflow from proceeding to the publish stage.
+
+The integrated validation workflow has been executed successfully with all six automated tests passing.
+
 The Movie Details page now initiates the movie details, trailer, and credits requests concurrently and waits for all three operations to complete before assigning the results for rendering. This removes the previous sequential request pattern while preserving the existing page behavior.
 
 The concurrent Movie Details loading change was validated through a Release build with zero warnings and zero errors, functional browser smoke testing, and browser Network verification. The movie details, trailer, and credits requests all completed successfully with HTTP 200 responses and were observed executing concurrently. No specific timing improvement is claimed because a controlled before-and-after performance benchmark was not performed.
@@ -1539,7 +1555,7 @@ The Netlify `wasm-tools` installation succeeds; however, the observed Netlify pu
 
 Production deployment capacity is currently being conserved. Development work should continue on `develop` or `feature/*` branches and should not be promoted to `main` until an intentional production release is warranted.
 
-The automated local Release validation workflow has been executed successfully from `develop`. The validation confirmed the required `wasm-tools` workload, completed clean, restore, Release build, and Release publish operations, verified zero build warnings and zero build errors, confirmed WebAssembly assembly-size optimization during local publishing, passed the Git whitespace check, and verified the expected publish output directory.
+The automated local Release validation workflow has been executed successfully from `develop`. The validation confirmed the required `wasm-tools` workload, completed clean, solution restore, Release build, automated test, and Release publish operations, verified zero build warnings and zero build errors, confirmed all six automated tests passed, confirmed WebAssembly assembly-size optimization during local publishing, passed the Git whitespace check, and verified the expected publish output directory.
 
 ## Known Issues and Future Improvements
 
@@ -1603,6 +1619,9 @@ Production deployments should remain intentional release events rather than rout
 
 At the current Sprint 2 baseline:
 
+- An xUnit test project provides the automated unit-test foundation.
+- Six automated tests currently cover `MovieFavoritesService` favorites and caching behavior.
+- Automated tests are a required gate in `scripts/validate-release.ps1`.
 - Release builds complete with zero warnings and zero errors.
 - Local Release publishing succeeds.
 - `develop` is the active integration branch.
