@@ -1,6 +1,8 @@
 $ErrorActionPreference = "Stop"
 
+$solution = "BlazorExpo.sln"
 $project = "BlazorCodeChallenge.csproj"
+$testProject = "tests\BlazorCodeChallenge.Tests\BlazorCodeChallenge.Tests.csproj"
 $publishDirectory = "bin\Release\net8.0\publish\wwwroot"
 
 function Invoke-Step {
@@ -56,11 +58,15 @@ Invoke-Step "Clean Release build" {
 }
 
 Invoke-Step "Restore dependencies" {
-    dotnet restore $project
+    dotnet restore $solution
 }
 
 Invoke-Step "Build Release" {
     dotnet build $project -c Release --no-restore
+}
+
+Invoke-Step "Run automated tests" {
+    dotnet test $testProject -c Release --no-restore
 }
 
 Invoke-Step "Publish Release" {
