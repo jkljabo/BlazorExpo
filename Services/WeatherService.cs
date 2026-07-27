@@ -45,17 +45,27 @@ namespace BlazorCodeChallenge.Services
                 "User-Agent",
                 "MyWeatherApp (your@email.com)");
 
-            var pointInfo =
-                await http.GetFromJsonAsync<PointResponse>(
-                    $"https://api.weather.gov/points/{lat},{lon}");
+            var pointInfo = await http.GetFromJsonAsync<PointResponse>(
+                $"https://api.weather.gov/points/{lat},{lon}");
 
-            var forecast =
-                await http.GetFromJsonAsync<ForecastResponse>(
-                    pointInfo!.properties.forecast);
+            if (pointInfo == null)
+            {
+                throw new InvalidOperationException(
+                    "Weather point information was not returned.");
+            }
+
+            var forecast = await http.GetFromJsonAsync<ForecastResponse>(
+                pointInfo.properties.forecast);
+
+            if (forecast == null)
+            {
+                throw new InvalidOperationException(
+                    "Weather forecast information was not returned.");
+            }
 
             return new WeatherForecastResult
             {
-                ForecastPeriods = forecast!.properties.periods,
+                ForecastPeriods = forecast.properties.periods,
                 RadarStation = pointInfo.properties.radarStation
             };
         }
