@@ -11,7 +11,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddScoped<TMDBService>();
 builder.Services.AddScoped<MovieFavoritesService>();
-
+builder.Services.AddScoped<WeatherService>();
 
 //builder.Services.AddScoped<FooterBrandService>();
 //builder.Services.AddScoped<ThemeService>();
