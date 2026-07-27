@@ -1,4 +1,5 @@
 using BlazorCodeChallenge.Services;
+using System.Globalization;
 using System.Net;
 using System.Text;
 
@@ -202,6 +203,46 @@ public class WeatherServiceTests
         Assert.Equal(
             "Weather forecast information was not returned.",
             exception.Message);
+    }
+
+    [Fact]
+    public async Task LookupCoordinatesAsync_UsesInvariantCultureForCoordinates()
+    {
+        // Arrange
+        const string json = """
+        [
+          {
+            "place_id": 12345,
+            "lat": "33.9526",
+            "lon": "-84.5499",
+            "display_name": "Marietta, Georgia, United States"
+          }
+        ]
+        """;
+
+        var handler = new StubHttpMessageHandler(_ => json);
+
+        using var httpClient = new HttpClient(handler);
+        var service = new WeatherService(httpClient);
+
+        var originalCulture = CultureInfo.CurrentCulture;
+
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("de-DE");
+
+            // Act
+            var (lat, lon) =
+                await service.LookupCoordinatesAsync("Marietta, GA");
+
+            // Assert
+            Assert.Equal(33.9526, lat);
+            Assert.Equal(-84.5499, lon);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+        }
     }
 
     private sealed class StubHttpMessageHandler(

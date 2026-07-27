@@ -1,4 +1,5 @@
 using BlazorCodeChallenge.Models;
+using System.Globalization;
 using System.Net.Http.Json;
 
 namespace BlazorCodeChallenge.Services
@@ -31,8 +32,8 @@ namespace BlazorCodeChallenge.Services
             }
 
             return (
-                double.Parse(location.Lat),
-                double.Parse(location.Lon));
+                double.Parse(location.Lat, CultureInfo.InvariantCulture),
+                double.Parse(location.Lon, CultureInfo.InvariantCulture));
         }
 
         public async Task<WeatherForecastResult> GetForecastAsync(
