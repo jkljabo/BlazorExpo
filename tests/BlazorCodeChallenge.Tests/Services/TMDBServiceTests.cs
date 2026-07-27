@@ -199,6 +199,103 @@ public class TMDBServiceTests
             movie.BackdropPath);
     }
 
+    [Fact]
+    public async Task GetMovieTrailerAsync_WithYouTubeTrailer_BuildsEmbedUrl()
+    {
+        // Arrange
+        const string json = """
+        {
+          "id": 505,
+          "results": [
+            {
+              "key": "abc123",
+              "site": "YouTube",
+              "type": "Trailer"
+            }
+          ]
+        }
+        """;
+
+        using var httpClient = CreateHttpClient(json);
+        var service = CreateService(httpClient);
+
+        // Act
+        var trailer = await service.GetMovieTrailerAsync(505);
+
+        // Assert
+        Assert.NotNull(trailer);
+        Assert.Equal(
+            "https://www.youtube.com/embed/abc123",
+            trailer.VideoUrl);
+    }
+
+    [Fact]
+    public async Task GetMovieTrailerAsync_WithoutYouTubeTrailer_ReturnsNull()
+    {
+        // Arrange
+        const string json = """
+        {
+          "id": 606,
+          "results": [
+            {
+              "key": "other123",
+              "site": "Vimeo",
+              "type": "Trailer"
+            }
+          ]
+        }
+        """;
+
+        using var httpClient = CreateHttpClient(json);
+        var service = CreateService(httpClient);
+
+        // Act
+        var trailer = await service.GetMovieTrailerAsync(606);
+
+        // Assert
+        Assert.Null(trailer);
+    }
+
+    [Fact]
+    public async Task GetMovieTrailerAsync_WithNullSiteOrType_IgnoresInvalidVideos()
+    {
+        // Arrange
+        const string json = """
+        {
+          "id": 707,
+          "results": [
+            {
+              "key": "invalid-site",
+              "site": null,
+              "type": "Trailer"
+            },
+            {
+              "key": "invalid-type",
+              "site": "YouTube",
+              "type": null
+            },
+            {
+              "key": "valid123",
+              "site": "YouTube",
+              "type": "Trailer"
+            }
+          ]
+        }
+        """;
+
+        using var httpClient = CreateHttpClient(json);
+        var service = CreateService(httpClient);
+
+        // Act
+        var trailer = await service.GetMovieTrailerAsync(707);
+
+        // Assert
+        Assert.NotNull(trailer);
+        Assert.Equal(
+            "https://www.youtube.com/embed/valid123",
+            trailer.VideoUrl);
+    }
+
     private static HttpClient CreateHttpClient(string json)
     {
         var handler = new StubHttpMessageHandler(json);

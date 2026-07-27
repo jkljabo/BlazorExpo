@@ -198,7 +198,11 @@ namespace BlazorCodeChallenge.Services
 
             //Video? trailer = response.Results.FirstOrDefault(v => v.Type == "Trailer" && v.Site == "YouTube");
 
-            Video? trailer = response.Results.FirstOrDefault(v => v.Site!.Contains("YouTube", StringComparison.OrdinalIgnoreCase) && v.Type!.Contains("Trailer", StringComparison.OrdinalIgnoreCase));
+            Video? trailer = response.Results.FirstOrDefault(v =>
+                !string.IsNullOrEmpty(v.Site) &&
+                !string.IsNullOrEmpty(v.Type) &&
+                v.Site.Contains("YouTube", StringComparison.OrdinalIgnoreCase) &&
+                v.Type.Contains("Trailer", StringComparison.OrdinalIgnoreCase));
 
             if (trailer != null)
             {
