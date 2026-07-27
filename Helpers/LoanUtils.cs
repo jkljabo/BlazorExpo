@@ -62,7 +62,16 @@ namespace BlazorCodeChallenge.Helpers
         {
             var monthlyRate = CalculateMonthlyRate(rate);
             var months = term * 12;
-            var payment = (amount * monthlyRate) / (1 - Math.Pow(1 + monthlyRate, -months));
+
+            if (monthlyRate == 0)
+            {
+                return amount / months;
+            }
+
+            var payment =
+                (amount * monthlyRate) /
+                (1 - Math.Pow(1 + monthlyRate, -months));
+
             return payment;
         }
 
