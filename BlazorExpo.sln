@@ -5,6 +5,10 @@ VisualStudioVersion = 17.14.37314.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCodeChallenge", "BlazorCodeChallenge.csproj", "{736F677F-BFA9-43F0-A992-C68E588F193C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D4DD5618-013F-4709-8D27-24319C8F2666}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCodeChallenge.Tests", "tests\BlazorCodeChallenge.Tests\BlazorCodeChallenge.Tests.csproj", "{771AA9EC-4C72-44CD-8FFE-D247F4B30A7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,11 +19,18 @@ Global
 		{736F677F-BFA9-43F0-A992-C68E588F193C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{736F677F-BFA9-43F0-A992-C68E588F193C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{736F677F-BFA9-43F0-A992-C68E588F193C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{771AA9EC-4C72-44CD-8FFE-D247F4B30A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771AA9EC-4C72-44CD-8FFE-D247F4B30A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771AA9EC-4C72-44CD-8FFE-D247F4B30A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771AA9EC-4C72-44CD-8FFE-D247F4B30A7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {96F65652-AD81-4B01-8745-BA1AB7007DF8}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{771AA9EC-4C72-44CD-8FFE-D247F4B30A7A} = {D4DD5618-013F-4709-8D27-24319C8F2666}
 	EndGlobalSection
 EndGlobal
