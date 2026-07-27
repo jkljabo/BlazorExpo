@@ -52,10 +52,10 @@ namespace BlazorCodeChallenge.Helpers
         }
         
         /// <summary>
-        /// Calculates a payment for a simple interest loan
+        /// Calculates the monthly payment for an amortizing loan.
         /// </summary>
         /// <param name="amount">Loan Amount</param>
-        /// <param name="rate">Anualized Rate as a double</param>
+        /// <param name="rate">Annualized Rate as a double</param>
         /// <param name="term">Term in years</param>
         /// <returns>A monthly payment as a double</returns>
         public static double CalculatePayment(double amount, double rate, double term)
