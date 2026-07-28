@@ -32,14 +32,6 @@ public partial class MortgageCalculator
         loan.Rate = 5.0;
     }
 
-    /// <summary>
-    /// Dispose : Releases resources used by the instance and resets the FooterBrandService.
-    /// </summary>
-    public void Dispose()
-    {
-        // nothing (preferred long-term)
-    }
-
     private void HandleSubmit()
     {
         //loan.Payment = LoanUtils.CalculatePayment(loan.PurchaseAmount, loan.Rate, loan.Term);

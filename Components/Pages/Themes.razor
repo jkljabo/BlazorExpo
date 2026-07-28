@@ -3,7 +3,6 @@
 @using BlazorCodeChallenge.Constants
 @using BlazorCodeChallenge.Services
 @inject AppState AppState
-@implements IDisposable
 @inject IJSRuntime JS
 @layout HomeLayout
 
@@ -48,20 +47,8 @@
     protected override void OnInitialized()
     {
         AppState.SetFooterBrand(FooterBrands.MagicSquareCode);
-        // Note Code Fix: 
-        // AppState.StateChanged += Refresh;
     }
 
-    private void Refresh()
-    {
-        InvokeAsync(StateHasChanged);
-    }
-
-    public void Dispose()
-    {
-        AppState.StateChanged -= Refresh;
-
-    }
     public async Task ChangeTheme(string theme)
     {
         // setTheme is defined in index.html

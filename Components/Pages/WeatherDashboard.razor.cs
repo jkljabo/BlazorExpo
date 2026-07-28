@@ -35,14 +35,6 @@ namespace BlazorCodeChallenge.Components.Pages
         }
 
         /// <summary>
-        /// Dispose : Releases resources used by the instance and resets the FooterBrandService.
-        /// </summary>
-        public void Dispose()
-        {
-            // nothing (preferred long-term)
-        }
-
-        /// <summary>
         /// LoadWeather : Asynchronously loads the weather forecast using the specified latitude and longitude or by looking up
         /// coordinates if not provided.
         /// </summary>

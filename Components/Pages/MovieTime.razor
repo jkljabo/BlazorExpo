@@ -6,7 +6,6 @@
 @layout MovieTimeLayout
 
 @inject AppState AppState
-@implements IDisposable
 
 <PageTitle>Movie Time</PageTitle>
 
@@ -58,10 +57,5 @@
     protected override void OnInitialized()
     {
         AppState.SetFooterBrand(FooterBrands.MovieTime);
-    }
-
-    public void Dispose()
-    {
-        // nothing (preferred long-term)
     }
 }

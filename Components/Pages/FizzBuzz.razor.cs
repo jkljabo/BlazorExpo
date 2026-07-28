@@ -21,14 +21,6 @@ public partial class FizzBuzz
     }
 
     /// <summary>
-    /// Dispose : Releases resources used by the instance and resets the FooterBrandService.
-    /// </summary>
-    public void Dispose()
-    {
-        // nothing (preferred long-term)
-    }
-
-    /// <summary>
     /// Generates FizzBuzz results for numbers from 1 to the specified stop value.
     /// </summary>
     private void GenerateFizzBuzzResults()

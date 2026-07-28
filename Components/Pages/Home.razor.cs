@@ -17,13 +17,5 @@ namespace BlazorCodeChallenge.Components.Pages
 
             AppState.SetFooterBrand(FooterBrands.MagicSquareCode);
         }
-
-        /// <summary>
-        /// Dispose : Releases resources used by the instance and resets the FooterBrandService.
-        /// </summary>
-        public void Dispose()
-        {
-            // nothing (preferred long-term)
-        }
     }
 }

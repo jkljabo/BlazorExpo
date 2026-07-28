@@ -50,10 +50,5 @@ namespace BlazorCodeChallenge.Components.Pages
         {
             AppState.SetFooterBrand(FooterBrands.MovieTime);
         }
-
-        public void Dispose()
-        {
-            // nothing (preferred long-term)
-        }
     }
 }
