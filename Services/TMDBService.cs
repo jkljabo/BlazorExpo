@@ -196,7 +196,6 @@ namespace BlazorCodeChallenge.Services
 
             MovieVideosResponse? response = await _http.GetFromJsonAsync<MovieVideosResponse>(url, _jsonOptions) ?? throw new HttpIOException(HttpRequestError.InvalidResponse, "Failed to load movie trailer!");
 
-            //Video? trailer = response.Results.FirstOrDefault(v => v.Type == "Trailer" && v.Site == "YouTube");
 
             Video? trailer = response.Results.FirstOrDefault(v =>
                 !string.IsNullOrEmpty(v.Site) &&

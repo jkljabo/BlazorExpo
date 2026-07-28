@@ -14,12 +14,10 @@ namespace BlazorCodeChallenge.Helpers
         {
             loan.Payments.Clear();
 
-            // Calculate a payment.
             loan.Payment = CalculatePayment(loan.PurchaseAmount, loan.Rate, loan.Term);
 
             var loanMonths = (loan.Term * 12);
 
-            // variables to hold the total interest and balance.
             double balance = loan.PurchaseAmount;
             double totalInterest = 0;
             double monthlyPrincipal = 0;
@@ -42,7 +40,6 @@ namespace BlazorCodeChallenge.Helpers
                 loanPayment.TotalInterest = totalInterest;
                 loanPayment.Balance = balance < 0 ? 0 : balance;
 
-                // Add the payment to the list
                 loan.Payments.Add(loanPayment);
             }
             loan.TotalInterest = totalInterest;

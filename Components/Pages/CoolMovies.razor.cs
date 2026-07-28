@@ -18,7 +18,6 @@ namespace BlazorCodeChallenge.Components.Pages
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., log the error, show a message to the user)
                 Console.Write(ex.Message);
             }
             finally
