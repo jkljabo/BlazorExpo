@@ -13,6 +13,7 @@ namespace BlazorCodeChallenge.Components.Pages
         private CreditsResponse? credits;
         private List<Cast> actors = [];
         private bool isLoading = true;
+        private string? errorMessage;
 
         [Parameter] public int MovieId { get; set; }
 
@@ -21,6 +22,7 @@ namespace BlazorCodeChallenge.Components.Pages
             try
             {
                 isLoading = true;
+                errorMessage = null;
 
                 var movieTask = TMDBService.GetMovieByIdAsync(MovieId);
                 var trailerTask = TMDBService.GetMovieTrailerAsync(MovieId);
@@ -36,7 +38,8 @@ namespace BlazorCodeChallenge.Components.Pages
             }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
+                Console.WriteLine(ex);
+                errorMessage = "Unable to load movie details. Please try again later.";
             }
             finally
             {

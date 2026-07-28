@@ -8,6 +8,7 @@ namespace BlazorCodeChallenge.Components.Pages
     {
         private MovieListResponse? searchResults;
         private bool isLoading = false;
+        private string? errorMessage;
 
         [SupplyParameterFromQuery] public string? Query { get; set; }
 
@@ -17,13 +18,17 @@ namespace BlazorCodeChallenge.Components.Pages
             if (!string.IsNullOrEmpty(Query))
             {
                 isLoading = true;
+                errorMessage = null;
+                searchResults = null;
+
                 try
                 {
                     searchResults = await TMDBService.SearchMoviesAsync(Query);
                 }
                 catch (Exception ex)
                 {
-                    Console.Write(ex.Message);
+                    Console.WriteLine(ex);
+                    errorMessage = "Unable to search for movies. Please try again later.";
                 }
                 finally
                 {

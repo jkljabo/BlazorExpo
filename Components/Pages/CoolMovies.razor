@@ -26,6 +26,12 @@
             {
                 <h2 class="text-muted">Loading cool movies...</h2>
             }
+            else if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @errorMessage
+                </div>
+            }
             else
             {
                 <h2 class="text-muted">Failed to load cool movies...</h2>

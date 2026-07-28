@@ -49,7 +49,7 @@ namespace BlazorCodeChallenge.Services
                 Console.WriteLine(
                     $"Error retrieving favorite movies: {ex.Message}");
 
-                favoriteMoviesCache = [];
+                throw;
             }
 
             return favoriteMoviesCache;

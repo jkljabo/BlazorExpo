@@ -217,4 +217,28 @@ public class MovieFavoritesServiceTests
         Assert.Single(secondResult);
         Assert.Equal(101, secondResult[0].Id);
     }
+
+    [Fact]
+    public async Task GetFavoriteMoviesAsync_WhenLocalStorageFails_PropagatesException()
+    {
+        // Arrange
+        var jsRuntime = Substitute.For<IJSRuntime>();
+
+        jsRuntime
+            .InvokeAsync<string?>(
+                "localStorage.getItem",
+                Arg.Any<object?[]>())
+            .Returns(new ValueTask<string?>(
+                Task.FromException<string?>(
+                    new InvalidOperationException("Storage unavailable."))));
+
+        var service = new MovieFavoritesService(jsRuntime);
+
+        // Act
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(
+            () => service.GetFavoriteMoviesAsync());
+
+        // Assert
+        Assert.Equal("Storage unavailable.", exception.Message);
+    }
 }

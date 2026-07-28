@@ -8,17 +8,20 @@ namespace BlazorCodeChallenge.Components.Pages
     {
         private MovieListResponse? coolMovies;
         private bool isLoading = true;
+        private string? errorMessage;
 
         protected override async Task OnInitializedAsync()
         {
             try
             {
                 isLoading = true;
+                errorMessage = null;
                 coolMovies = await TMDBService.GetCoolMoviesAsync();
             }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
+                Console.WriteLine(ex);
+                errorMessage = "Unable to load cool movies. Please try again later.";
             }
             finally
             {
