@@ -6,7 +6,7 @@
 
 **Release Baseline:** RC1 (Sprint 1)
 
-**Current Development:** Sprint 3 Complete
+**Current Development:** Sprint 4 Complete
 
 **Last Updated:** July 2026
 
@@ -1605,6 +1605,39 @@ The Sprint 2 automated testing baseline remains intact. Existing `MovieFavorites
 
 The complete forty-one-test suite passes in the Release configuration.
 
+## Sprint 4 Summary
+
+Sprint 4 focused on reducing accumulated technical debt, simplifying page lifecycle behavior, and improving Movie Time error and empty-state handling while preserving the Sprint 3 automated testing baseline.
+
+Completed Sprint 4 improvements include:
+
+- Removed obsolete `IDisposable` implementations from pages that no longer subscribe to application-state events.
+- Removed stale commented-out code and obsolete implementation comments across pages, models, services, helpers, and application startup.
+- Removed residual diagnostic console output from Movie Time search navigation.
+- Improved Movie Time pages to distinguish loading, error, and valid empty-result states.
+- Added user-facing error messages for movie lists, search results, movie details, and favorite movies.
+- Updated empty-state messaging so the absence of results is no longer presented as an application failure.
+- Corrected the invalid `text-mutedb` CSS class on the Movie Details fallback state.
+- Changed favorite-movie loading so browser local-storage retrieval failures propagate to the page instead of being silently converted into an empty favorites collection.
+- Added automated regression coverage for favorite-movie local-storage retrieval failures.
+- Expanded the complete automated test suite from forty-one tests to forty-two tests.
+- Verified the complete forty-two-test suite in the Release configuration.
+- Verified the Release build with zero warnings and zero errors.
+
+### Sprint 4 Completion State
+
+Sprint 4 is complete. The objectives for reducing obsolete code, simplifying page lifecycle behavior, improving Movie Time failure handling, and preserving application behavior through automated validation have been achieved.
+
+The complete automated test suite currently contains forty-two tests. The Sprint 3 coverage baseline remains intact, with one additional `MovieFavoritesService` regression test protecting local-storage failure propagation.
+
+Movie Time pages now distinguish between an operational failure and a successful request that produces no displayable data. Loading failures produce explicit user-facing error messages, while empty movie lists, empty favorites, unavailable movie details, and searches with no matches produce appropriate non-error status messages.
+
+`MovieFavoritesService` no longer converts a local-storage retrieval exception into an empty favorites collection. Retrieval failures are logged and rethrown so the consuming page can represent the failure accurately rather than presenting it as a legitimate empty favorites list.
+
+Obsolete page disposal lifecycle code and stale commented implementations have been removed. The resulting production changes reduce unnecessary code while retaining active application-state subscriptions only where lifecycle cleanup remains required.
+
+Sprint 4 validation completed successfully with a Release build containing zero warnings and zero errors and all forty-two automated tests passing.
+
 ## Known Issues and Future Improvements
 
 Sprint 2 resolved the cleanup items originally deferred from Sprint 1, including nullable reference warnings, the unused Weather Dashboard exception variable, and initial evaluation of the Blazor WebAssembly `wasm-tools` workload.
@@ -1665,11 +1698,11 @@ Production deployments should remain intentional release events rather than rout
 
 ### Current Engineering Baseline
 
-At the Sprint 3 completion baseline:
+At the Sprint 4 completion baseline:
 
 - An xUnit test project provides the automated unit-test foundation.
-- Forty-one automated tests provide coverage across all current classes in the `Services` and `Helpers` directories.
-- Service coverage includes six `MovieFavoritesService` tests, nine `TMDBService` tests, seven `WeatherService` tests, and four `AppState` tests.
+- Forty-two automated tests provide coverage across all current classes in the `Services` and `Helpers` directories.
+- Service coverage includes seven `MovieFavoritesService` tests, nine `TMDBService` tests, seven `WeatherService` tests, and four `AppState` tests.
 - Helper coverage includes nine `LoanUtils` tests and six `FizzBuzzUtils` tests.
 - Automated testing has identified and prevented regression of incomplete TMDB trailer metadata handling, culture-dependent Weather coordinate parsing, and zero-interest mortgage payment calculation.
 - Shared FizzBuzz business logic is isolated in `FizzBuzzUtils` and tested independently from the Blazor UI.
