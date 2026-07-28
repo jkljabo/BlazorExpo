@@ -6,7 +6,7 @@
 
 **Release Baseline:** RC1 (Sprint 1)
 
-**Current Development:** Sprint 2
+**Current Development:** Sprint 3 Complete
 
 **Last Updated:** July 2026
 
@@ -1565,6 +1565,46 @@ Production deployment capacity is currently being conserved. Development work sh
 
 The automated local Release validation workflow has been executed successfully from `develop`. The validation confirmed the required `wasm-tools` workload, completed clean, solution restore, Release build, automated test, and Release publish operations, verified zero build warnings and zero build errors, confirmed all fifteen automated tests passed, confirmed WebAssembly assembly-size optimization during local publishing, passed the Git whitespace check, and verified the expected publish output directory.
 
+## Sprint 3 Summary
+
+Sprint 3 expanded the automated testing baseline across the application's core services and business logic, improved testability through targeted refactoring, and corrected defects exposed by automated testing.
+
+Completed Sprint 3 improvements include:
+
+- Expanded the automated test suite from fifteen tests to forty-one tests.
+- Established seven automated tests for `WeatherService`.
+- Added Weather service coverage for coordinate lookup, forecast retrieval, request behavior, missing location handling, missing weather responses, and culture-independent coordinate parsing.
+- Corrected Weather coordinate parsing to use invariant culture after automated testing exposed locale-dependent parsing behavior.
+- Established nine automated tests for `LoanUtils`.
+- Added mortgage calculation coverage for monthly rates, monthly interest, monthly payments, amortization schedules, recalculation behavior, loan totals, and full loan amortization.
+- Corrected the mortgage payment calculation for zero-interest loans after automated testing exposed a `NaN` result.
+- Extracted duplicated FizzBuzz generation logic from the FizzBuzz pages into the reusable `FizzBuzzUtils` helper.
+- Established six automated tests for `FizzBuzzUtils`, including standard and custom Fizz/Buzz values.
+- Established four automated tests for `AppState`.
+- Added application-state coverage for default state, theme changes, footer-brand changes, and state-change notifications.
+- Preserved the existing six `MovieFavoritesService` tests and nine `TMDBService` tests established during Sprint 2.
+- Verified the complete forty-one-test suite in the Release configuration.
+
+### Sprint 3 Completion State
+
+Sprint 3 is complete. The objectives for expanding automated coverage, improving testability, protecting core application behavior, and correcting defects exposed through automated testing have been achieved.
+
+The complete automated test suite currently contains forty-one tests across six production units: six `MovieFavoritesService` tests, nine `TMDBService` tests, seven `WeatherService` tests, four `AppState` tests, nine `LoanUtils` tests, and six `FizzBuzzUtils` tests.
+
+All current classes in the `Services` and `Helpers` directories now have dedicated automated test coverage.
+
+Weather service testing identified locale-dependent coordinate parsing when Nominatim latitude and longitude values were parsed using the current culture. `WeatherService` now parses these API-provided coordinate values using `CultureInfo.InvariantCulture`, preventing decimal-point coordinates from being misinterpreted under cultures that use different numeric separators.
+
+Mortgage calculation testing identified an unsupported zero-interest case in `CalculatePayment`. The amortization formula produced `NaN` when the monthly interest rate was zero. The calculation now returns the principal divided by the number of loan months for zero-interest loans, and the resulting principal-only amortization schedule is protected by automated tests.
+
+FizzBuzz generation logic previously existed independently in both FizzBuzz page implementations. The shared algorithm has been extracted into `FizzBuzzUtils`, reducing duplicated business logic and allowing the algorithm to be tested independently from Blazor component rendering.
+
+`AppState` now has automated regression coverage for its initial application state, theme updates, footer-brand updates, and `StateChanged` event behavior.
+
+The Sprint 2 automated testing baseline remains intact. Existing `MovieFavoritesService` and `TMDBService` tests continue to protect favorites persistence and caching behavior, TMDB request and response handling, image-path behavior, movie details, and trailer selection.
+
+The complete forty-one-test suite passes in the Release configuration.
+
 ## Known Issues and Future Improvements
 
 Sprint 2 resolved the cleanup items originally deferred from Sprint 1, including nullable reference warnings, the unused Weather Dashboard exception variable, and initial evaluation of the Blazor WebAssembly `wasm-tools` workload.
@@ -1625,13 +1665,15 @@ Production deployments should remain intentional release events rather than rout
 
 ### Current Engineering Baseline
 
-At the current Sprint 2 baseline:
+At the Sprint 3 completion baseline:
 
 - An xUnit test project provides the automated unit-test foundation.
-- Fifteen automated tests currently provide service-level coverage: six for `MovieFavoritesService` and nine for `TMDBService`.
-- TMDB service tests cover movie retrieval, search behavior, image handling, movie details, and trailer selection.
-- Automated testing has identified and prevented regression of incomplete TMDB trailer metadata handling.
-- Automated tests are a required gate in `scripts/validate-release.ps1`.
+- Forty-one automated tests provide coverage across all current classes in the `Services` and `Helpers` directories.
+- Service coverage includes six `MovieFavoritesService` tests, nine `TMDBService` tests, seven `WeatherService` tests, and four `AppState` tests.
+- Helper coverage includes nine `LoanUtils` tests and six `FizzBuzzUtils` tests.
+- Automated testing has identified and prevented regression of incomplete TMDB trailer metadata handling, culture-dependent Weather coordinate parsing, and zero-interest mortgage payment calculation.
+- Shared FizzBuzz business logic is isolated in `FizzBuzzUtils` and tested independently from the Blazor UI.
+- Automated tests remain a required gate in `scripts/validate-release.ps1`.
 - Release builds complete with zero warnings and zero errors.
 - Local Release publishing succeeds.
 - `develop` is the active integration branch.
