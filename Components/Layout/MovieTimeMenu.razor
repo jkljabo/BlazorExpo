@@ -70,10 +70,6 @@
     {
         
         NavManager.NavigateTo(string.IsNullOrEmpty(Query) ? "search" : $"search?query={Query}");
-
-        
-
-        Console.WriteLine($"Searching for: {Query}");
     }
 
     protected override void OnInitialized()
