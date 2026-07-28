@@ -71,8 +71,6 @@
         // Implement search functionality here
         // Take the value from the form and pass it to the search page
         
-        // NavManager.NavigateTo("/search");
-        // NavManager.NavigateTo($"/search?query={Uri.EscapeDataString(Query)}");
         NavManager.NavigateTo(string.IsNullOrEmpty(Query) ? "search" : $"search?query={Query}");
 
         

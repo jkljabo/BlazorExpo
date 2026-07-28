@@ -34,7 +34,6 @@ public partial class MortgageCalculator
 
     private void HandleSubmit()
     {
-        //loan.Payment = LoanUtils.CalculatePayment(loan.PurchaseAmount, loan.Rate, loan.Term);
         loan = LoanUtils.GetPayments(loan);
     }
 

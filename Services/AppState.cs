@@ -7,8 +7,6 @@ namespace BlazorCodeChallenge.Services
     {
         public string CurrentTheme { get; private set; } = "gray";
 
-        // Note Code Fix:
-        // public FooterBrand CurrentFooterBrand { get; private set; }
         public FooterBrand CurrentFooterBrand { get; private set; } = FooterBrands.MagicSquareCode;
 
         public event Action? StateChanged;

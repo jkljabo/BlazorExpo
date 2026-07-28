@@ -51,8 +51,6 @@ namespace BlazorCodeChallenge.Components.Pages
 
             if (trailer is not null)
             {
-                //string trailerURL = $"https://www.youtube.com/embed/{trailer.Key}";
-                //await jsModule.InvokeVoidAsync("initVideoPlayer", trailerURL);
                 await jsModule.InvokeVoidAsync("initVideoPlayer", trailer.VideoUrl);
             }
             else

@@ -5,8 +5,6 @@ namespace BlazorCodeChallenge.Components.Pages
 {
     public partial class FavoriteMovies
     {
-        //private MovieListResponse? favMovies;
-
         private List<Movie> favoriteMovies = new List<Movie>();
         private bool isLoading = true;
 
@@ -27,24 +25,6 @@ namespace BlazorCodeChallenge.Components.Pages
                 isLoading = false;
             }
         }
-
-        //protected override async Task OnInitializedAsync()
-        //{
-        //    try
-        //    {
-        //        isLoading = true;
-        //        favoriteMovies = await TMDBService.GetFavoriteMoviesAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Handle exceptions (e.g., log the error, show a message to the user)
-        //        Console.Write(ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        isLoading = false;
-        //    }
-        //}
 
         protected override void OnInitialized()
         {
