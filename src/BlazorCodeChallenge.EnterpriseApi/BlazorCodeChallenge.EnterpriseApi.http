@@ -1,0 +1,6 @@
+@BlazorCodeChallenge.EnterpriseApi_HostAddress = http://localhost:5209
+
+GET {{BlazorCodeChallenge.EnterpriseApi_HostAddress}}/api/engineering/status
+Accept: application/json
+
+###

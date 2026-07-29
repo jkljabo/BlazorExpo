@@ -15,10 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
-	<Compile Remove="tests\**\*.cs" />
-	<Content Remove="tests\**\*" />
-	<EmbeddedResource Remove="tests\**\*" />
-	<None Remove="tests\**\*" />
+    <Compile Remove="tests\**\*.cs" />
+    <Content Remove="tests\**\*" />
+    <EmbeddedResource Remove="tests\**\*" />
+    <None Remove="tests\**\*" />
+
+    <Compile Remove="src\**\*.cs" />
+    <Content Remove="src\**\*" />
+    <EmbeddedResource Remove="src\**\*" />
+    <None Remove="src\**\*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +37,10 @@
     <Folder Include="Features\" />
     <Folder Include="Utilities\" />
     <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="src\BlazorCodeChallenge.Contracts\BlazorCodeChallenge.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
