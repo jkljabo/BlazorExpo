@@ -4,3 +4,8 @@ GET {{BlazorCodeChallenge.EnterpriseApi_HostAddress}}/api/engineering/status
 Accept: application/json
 
 ###
+
+GET {{BlazorCodeChallenge.EnterpriseApi_HostAddress}}/api/engineering/diagnostics
+Accept: application/json
+
+###

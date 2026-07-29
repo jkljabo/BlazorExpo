@@ -1,4 +1,5 @@
-﻿using BlazorCodeChallenge.Core.Engineering;
+using BlazorCodeChallenge.Core.Diagnostics;
+using BlazorCodeChallenge.Core.Engineering;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IEngineeringSuiteService, EngineeringSuiteService>();
+builder.Services.AddScoped<IRuntimeDiagnosticsService, RuntimeDiagnosticsService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
