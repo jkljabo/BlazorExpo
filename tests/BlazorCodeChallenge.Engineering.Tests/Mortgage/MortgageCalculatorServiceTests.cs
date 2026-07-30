@@ -86,4 +86,90 @@ public sealed class MortgageCalculatorServiceTests
         Assert.Throws<ArgumentOutOfRangeException>(
             () => service.Calculate(request));
     }
+
+
+    [Fact]
+    public void Calculate_Returns360Payments_ForThirtyYearMortgage()
+    {
+        var request = new MortgageCalculationRequest
+        {
+            LoanAmount = 350000m,
+            AnnualInterestRate = 6.25m,
+            TermYears = 30
+        };
+
+        //var service = new MortgageCalculatorService();
+
+        var result = service.Calculate(request);
+        Assert.Equal(360, result.PaymentSchedule.Count);
+    }
+
+    [Fact]
+    public void Calculate_FirstPayment_HasExpectedValues()
+    {
+        var request = new MortgageCalculationRequest
+        {
+            LoanAmount = 350000m,
+            AnnualInterestRate = 6.25m,
+            TermYears = 30
+        };
+
+        //var service = new MortgageCalculatorService();
+
+        var result = service.Calculate(request);
+
+        var payment = result.PaymentSchedule.First();
+
+        Assert.Equal(1, payment.PaymentNumber);
+
+        Assert.True(payment.Payment > 0);
+
+        Assert.True(payment.Principal > 0);
+
+        Assert.True(payment.Interest > 0);
+
+        Assert.True(payment.RemainingBalance < request.LoanAmount);
+    }
+
+    [Fact]
+    public void Calculate_LastPayment_PaysOffLoan()
+    {
+        var request = new MortgageCalculationRequest
+        {
+            LoanAmount = 350000m,
+            AnnualInterestRate = 6.25m,
+            TermYears = 30
+        };
+
+        //var service = new MortgageCalculatorService();
+
+        var result = service.Calculate(request);
+
+        var finalPayment = result.PaymentSchedule.Last();
+
+        var final = result.PaymentSchedule.Last();
+
+        Assert.Equal(360, finalPayment.PaymentNumber);
+
+        Assert.True(finalPayment.RemainingBalance <= 0.01m);
+    }
+
+    [Fact]
+    public void Calculate_TotalPrincipal_EqualsOriginalLoan()
+    {
+        var request = new MortgageCalculationRequest
+        {
+            LoanAmount = 350000m,
+            AnnualInterestRate = 6.25m,
+            TermYears = 30
+        };
+
+        //var service = new MortgageCalculatorService();
+
+        var result = service.Calculate(request);
+
+        var totalPrincipal = result.PaymentSchedule.Sum(x => x.Principal);
+
+        Assert.Equal(request.LoanAmount, Math.Round(totalPrincipal, 2));
+    }
 }
