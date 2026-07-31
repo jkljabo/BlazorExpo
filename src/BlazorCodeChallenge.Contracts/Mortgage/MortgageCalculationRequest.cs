@@ -25,4 +25,9 @@ public sealed class MortgageCalculationRequest
     /// </summary>
     [Range(1, 50)]
     public int TermYears { get; init; }
+
+    /// <summary>
+    /// Gets the extra principal paid exceeding the expected monthly principal.
+    /// </summary>
+    public decimal ExtraMonthlyPrincipal { get; init; }
 }

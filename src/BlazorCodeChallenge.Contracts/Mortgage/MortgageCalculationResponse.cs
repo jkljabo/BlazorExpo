@@ -25,4 +25,19 @@ public sealed class MortgageCalculationResponse
     /// </summary>
     public IReadOnlyList<MortgagePaymentDetail> PaymentSchedule { get; init; }
         = [];
+
+    /// <summary>
+    /// Gets the actual number of payments made over the life of the loan.
+    /// </summary>
+    public int ActualNumberOfPayments { get; init; }
+
+    /// <summary>
+    /// Gets the number of months saved by extra monthly principal paid.
+    /// </summary>
+    public int MonthsSaved { get; init; }
+
+    /// <summary>
+    /// Gets the amount of interest saved by extra monthly principal paid.
+    /// </summary>
+    public decimal InterestSaved { get; init; }
 }

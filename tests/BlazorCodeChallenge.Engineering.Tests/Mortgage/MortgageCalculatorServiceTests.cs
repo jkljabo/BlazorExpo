@@ -1,6 +1,7 @@
 ﻿using BlazorCodeChallenge.Contracts.Mortgage;
 using BlazorCodeChallenge.Core.Mortgage;
 using Xunit;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BlazorCodeChallenge.Engineering.Tests.Mortgage;
 
@@ -98,8 +99,6 @@ public sealed class MortgageCalculatorServiceTests
             TermYears = 30
         };
 
-        //var service = new MortgageCalculatorService();
-
         var result = service.Calculate(request);
         Assert.Equal(360, result.PaymentSchedule.Count);
     }
@@ -113,8 +112,6 @@ public sealed class MortgageCalculatorServiceTests
             AnnualInterestRate = 6.25m,
             TermYears = 30
         };
-
-        //var service = new MortgageCalculatorService();
 
         var result = service.Calculate(request);
 
@@ -141,8 +138,6 @@ public sealed class MortgageCalculatorServiceTests
             TermYears = 30
         };
 
-        //var service = new MortgageCalculatorService();
-
         var result = service.Calculate(request);
 
         var finalPayment = result.PaymentSchedule.Last();
@@ -164,12 +159,27 @@ public sealed class MortgageCalculatorServiceTests
             TermYears = 30
         };
 
-        //var service = new MortgageCalculatorService();
-
         var result = service.Calculate(request);
 
         var totalPrincipal = result.PaymentSchedule.Sum(x => x.Principal);
 
         Assert.Equal(request.LoanAmount, Math.Round(totalPrincipal, 2));
+    }
+
+    [Fact]
+    public void Calculate_ExtraPrincipal_ReducesNumberOfPayments()
+    {
+        var request = new MortgageCalculationRequest
+        {
+            LoanAmount = 350000m,
+            AnnualInterestRate = 6.25m,
+            TermYears = 30,
+            ExtraMonthlyPrincipal = 200m
+        };
+
+        var result = service.Calculate(request);
+
+        Assert.True(result.ActualNumberOfPayments < 360);
+        Assert.Equal(360 - result.ActualNumberOfPayments, result.MonthsSaved);
     }
 }

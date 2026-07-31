@@ -46,9 +46,11 @@ public sealed class MortgageCalculatorService
         var totalInterest =
             totalPaid - principal;
 
-        var paymentSchedule = BuildPaymentSchedule(
-            request.LoanAmount, Math.Round((decimal)monthlyPayment, 2),
-            request.AnnualInterestRate, request.TermYears);
+        var monthlyPaymentDecimal = (decimal)monthlyPayment;
+
+        var schedule = BuildPaymentSchedule(
+            request.LoanAmount, monthlyPaymentDecimal,
+            request.AnnualInterestRate, request.ExtraMonthlyPrincipal);
 
         return new MortgageCalculationResponse
         {
@@ -61,57 +63,175 @@ public sealed class MortgageCalculatorService
             TotalPaid =
                 Math.Round((decimal)totalPaid, 2),
 
-            PaymentSchedule = paymentSchedule
+            PaymentSchedule = schedule.PaymentSchedule,
+
+            ActualNumberOfPayments = schedule.ActualNumberOfPayments,
+
+            MonthsSaved = request.TermYears * 12 - schedule.ActualNumberOfPayments,
+
+            InterestSaved = Math.Round((decimal)totalInterest, 2) - schedule.TotalInterestPaid
         };
     }
 
-    private static IReadOnlyList<MortgagePaymentDetail> BuildPaymentSchedule(
-        decimal loanAmount, decimal monthlyPayment, decimal annualInterestRate, int termYears)
+    //private static IReadOnlyList<MortgagePaymentDetail> BuildPaymentSchedule(
+    //    decimal loanAmount, decimal monthlyPayment, decimal annualInterestRate, 
+    //    int termYears, decimal extraMonthlyPrincipal)
+    //{
+    //    int numberOfPayments = termYears * 12;
+    //    decimal monthlyRate = annualInterestRate / 100m / 12m;
+
+    //    var schedule = new List<MortgagePaymentDetail>(numberOfPayments);
+
+    //    decimal remainingBalance = loanAmount;
+    //    decimal totalRoundedPrincipal = 0m;
+
+    //    for (int paymentNumber = 1; paymentNumber <= numberOfPayments; paymentNumber++)
+    //    {
+    //        decimal interest = remainingBalance * monthlyRate;
+    //        decimal principal = monthlyPayment - interest;
+
+    //        principal += extraMonthlyPrincipal;
+
+    //        if (principal > remainingBalance)
+    //        {
+    //            principal = remainingBalance;
+    //        }
+
+    //        remainingBalance -= principal;
+
+    //        decimal roundedInterest = Math.Round(interest, 2);
+    //        decimal roundedPrincipal = Math.Round(principal, 2);
+
+    //        // TODO: Revisit rounding reconciliation for early payoff loans.
+    //        // if (paymentNumber == numberOfPayments)
+    //        // {
+    //        //     roundedPrincipal = loanAmount - totalRoundedPrincipal;
+    //        // }
+
+    //        totalRoundedPrincipal += roundedPrincipal;
+
+    //        schedule.Add(new MortgagePaymentDetail
+    //        {
+    //            PaymentNumber = paymentNumber,
+    //            Payment = Math.Round(monthlyPayment, 2),
+    //            Interest = roundedInterest,
+    //            Principal = roundedPrincipal,
+    //            RemainingBalance = Math.Round(remainingBalance, 2)
+    //        });
+
+    //        // Stop when paid off
+    //        if (remainingBalance <= 0.01m)
+    //        {
+    //            break;
+    //        }
+    //    }
+
+    //    return schedule;
+    //}
+
+    private static MortgageScheduleBuilder BuildPaymentSchedule(
+        decimal loanAmount, decimal monthlyPayment, 
+        decimal annualInterestRate, decimal extraMonthlyPrincipal)
     {
-        int numberOfPayments = termYears * 12;
+        int paymentNumber = 0;
+        decimal remainingBalance = loanAmount;
         decimal monthlyRate = annualInterestRate / 100m / 12m;
 
-        var schedule = new List<MortgagePaymentDetail>(numberOfPayments);
+        var schedule = new MortgageScheduleBuilder(loanAmount);
 
-        decimal remainingBalance = loanAmount;
-        decimal totalRoundedPrincipal = 0m;
-
-        for (int paymentNumber = 1; paymentNumber <= numberOfPayments; paymentNumber++)
+        while (remainingBalance > 0.01m)
         {
-            decimal interest = remainingBalance * monthlyRate;
-            decimal principal = monthlyPayment - interest;
+            paymentNumber++;
 
-            if (paymentNumber == numberOfPayments)
+            // New financial algorithm
+            // While loan not paid
+
+            //  var interest = CalculateInterest(...);
+            var interest = remainingBalance * monthlyRate;
+
+            //  var principal = CalculatePrincipal(...);
+            var principal = monthlyPayment - interest;
+
+            //  principal = ApplyExtraPrincipal(...);
+            principal += extraMonthlyPrincipal;
+
+            //  principal = CapPrincipal(...);
+            if (principal > remainingBalance)
             {
                 principal = remainingBalance;
-                remainingBalance = 0m;
-            }
-            else
-            {
-                remainingBalance -= principal;
             }
 
-            decimal roundedInterest = Math.Round(interest, 2);
-            decimal roundedPrincipal = Math.Round(principal, 2);
+            //  remainingBalance = UpdateBalance(...);
+            remainingBalance -= principal;
 
-            // Reconcile the displayed schedule on the final payment.
-            if (paymentNumber == numberOfPayments)
-            {
-                roundedPrincipal = loanAmount - totalRoundedPrincipal;
-            }
+            bool isFinalPayment = remainingBalance <= 0.01m;
 
-            totalRoundedPrincipal += roundedPrincipal;
+            //  schedule.Add(...);
+            schedule.Add(paymentNumber, (principal + interest), principal, 
+                interest, remainingBalance, isFinalPayment);
 
-            schedule.Add(new MortgagePaymentDetail
-            {
-                PaymentNumber = paymentNumber,
-                Payment = Math.Round(monthlyPayment, 2),
-                Interest = roundedInterest,
-                Principal = roundedPrincipal,
-                RemainingBalance = Math.Round(remainingBalance, 2)
-            });
+            // End
+
         }
 
         return schedule;
+    }
+
+    private sealed class MortgageScheduleBuilder
+    {
+        private readonly decimal _originalLoanAmount;
+        private readonly List<MortgagePaymentDetail> _payments = [];
+        private decimal _displayedPrincipalTotal;
+
+        public IReadOnlyList<MortgagePaymentDetail> PaymentSchedule => _payments;
+
+        public int ActualNumberOfPayments => _payments.Count;
+
+        public decimal TotalInterestPaid { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="originalLoanAmount"></param>
+        public MortgageScheduleBuilder(decimal originalLoanAmount)
+        {
+            _originalLoanAmount = originalLoanAmount;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="paymentNumber"></param>
+        /// <param name="payment"></param>
+        /// <param name="principal"></param>
+        /// <param name="interest"></param>
+        /// <param name="remainingBalance"></param>
+        /// <param name="isFinalPayment"></param>
+        public void Add(int paymentNumber, decimal payment, decimal principal, 
+            decimal interest, decimal remainingBalance, bool isFinalPayment)
+        {
+            decimal roundedPrincipal;
+
+            if (isFinalPayment)
+            {
+                roundedPrincipal = _originalLoanAmount - _displayedPrincipalTotal;
+            }
+            else
+            {
+                roundedPrincipal = Math.Round(principal, 2);
+            }
+
+            _displayedPrincipalTotal += roundedPrincipal;
+
+            _payments.Add(new MortgagePaymentDetail
+            {
+                PaymentNumber = paymentNumber,
+                Payment = Math.Round(payment, 2),
+                Principal = roundedPrincipal,
+                Interest = Math.Round(interest, 2),
+                RemainingBalance = Math.Round(remainingBalance, 2)
+            });
+            TotalInterestPaid += interest;
+        }
     }
 }
