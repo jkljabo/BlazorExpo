@@ -9,6 +9,7 @@ namespace BlazorCodeChallenge.EnterpriseApi.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/mortgage")]
+[ApiExplorerSettings(GroupName = "Mortgage")]
 public sealed class MortgageController : ControllerBase
 {
     private readonly IMortgageCalculatorService mortgageCalculatorService;
@@ -20,20 +21,19 @@ public sealed class MortgageController : ControllerBase
     /// <param name="mortgageCalculatorService">
     /// The service used to perform mortgage calculations.
     /// </param>
-    public MortgageController(
-        IMortgageCalculatorService mortgageCalculatorService)
+    public MortgageController(IMortgageCalculatorService mortgageCalculatorService)
     {
         this.mortgageCalculatorService = mortgageCalculatorService;
     }
 
     /// <summary>
-    /// Calculates payment information for a fixed-rate mortgage.
+    /// Calculates an amortization schedule for a fixed-rate mortgage.
     /// </summary>
     /// <param name="request">
     /// The mortgage calculation request.
     /// </param>
     /// <returns>
-    /// The calculated mortgage payment information.
+    /// The calculated mortgage details and amortization schedule.
     /// </returns>
     /// <response code="200">
     /// The mortgage calculation completed successfully.
@@ -42,10 +42,10 @@ public sealed class MortgageController : ControllerBase
     /// The request failed validation.
     /// </response>
     [HttpPost("calculate")]
-    [ProducesResponseType<MortgageCalculationResponse>(
-        StatusCodes.Status200OK)]
+    [ProducesResponseType<MortgageCalculationResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public ActionResult<MortgageCalculationResponse> Calculate(
-        MortgageCalculationRequest request)
+        [FromBody] MortgageCalculationRequest request)
     {
         return Ok(
             mortgageCalculatorService.Calculate(request));

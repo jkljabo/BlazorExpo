@@ -10,11 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Components\Services\FooterBrandService.cs" />
-    <Compile Remove="Components\Services\ThemeService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="tests\**\*.cs" />
     <Content Remove="tests\**\*" />
     <EmbeddedResource Remove="tests\**\*" />
@@ -32,10 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Services\" />
     <Folder Include="Components\Validators\" />
-    <Folder Include="Features\" />
-    <Folder Include="Utilities\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

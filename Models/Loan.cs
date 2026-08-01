@@ -5,10 +5,10 @@ namespace BlazorCodeChallenge.Models
     public class Loan
     {
         [Required]
-        [Range(1, double.MaxValue, ErrorMessage="Purchace Amount must be at least $1")]
+        [Range(1, double.MaxValue, ErrorMessage = "Purchace Amount must be at least $1")]
         public double PurchaseAmount { get; set; }
 
-        [Range(0.0, 100, MinimumIsExclusive = true, ErrorMessage ="Interest Rate must be between 0 and 100" )]
+        [Range(0.0, 100, MinimumIsExclusive = true, ErrorMessage = "Interest Rate must be between 0 and 100")]
         public double Rate { get; set; }
 
         // Term is expressed in years (mortgage plus type loans)

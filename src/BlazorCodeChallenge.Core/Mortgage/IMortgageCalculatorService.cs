@@ -16,6 +16,5 @@ public interface IMortgageCalculatorService
     /// <returns>
     /// The calculated mortgage payment information.
     /// </returns>
-    MortgageCalculationResponse Calculate(
-        MortgageCalculationRequest request);
+    MortgageCalculationResponse Calculate(MortgageCalculationRequest request);
 }

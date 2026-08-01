@@ -47,7 +47,7 @@ namespace BlazorCodeChallenge.Helpers
 
             return loan;
         }
-        
+
         /// <summary>
         /// Calculates the monthly payment for an amortizing loan.
         /// </summary>

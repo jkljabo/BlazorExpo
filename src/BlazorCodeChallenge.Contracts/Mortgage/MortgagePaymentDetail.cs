@@ -9,12 +9,12 @@ public sealed class MortgagePaymentDetail
     public int PaymentNumber { get; init; }
 
     /// <summary>
-    /// Gets the total payment amount.
+    /// Gets the total payment for the current installment.
     /// </summary>
     public decimal Payment { get; init; }
 
     /// <summary>
-    /// Gets the portion of the payment applied to the loan principal.
+    /// Gets the portion of the payment applied to principal.
     /// </summary>
     public decimal Principal { get; init; }
 
@@ -24,7 +24,7 @@ public sealed class MortgagePaymentDetail
     public decimal Interest { get; init; }
 
     /// <summary>
-    /// Gets the remaining loan balance after the payment is applied.
+    /// Gets the remaining loan balance after this payment.
     /// </summary>
     public decimal RemainingBalance { get; init; }
 }

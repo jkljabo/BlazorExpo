@@ -6,7 +6,7 @@ namespace BlazorCodeChallenge.Components.UI.Swiper
 {
     public partial class ActorSwiper
     {
-        [Parameter,EditorRequired] public List<Cast> Actors { get; set; } = [];
+        [Parameter, EditorRequired] public List<Cast> Actors { get; set; } = [];
 
         ElementReference? swiperContainer;
 

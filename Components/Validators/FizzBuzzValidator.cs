@@ -34,14 +34,14 @@ namespace BlazorCodeChallenge.Components.Validators
             validationMessageStore.Clear(fieldIdentifier);
 
             // Validate the field.
-            if (fieldIdentifier.FieldName == nameof(FizzBuzzModel.FizzValue)) 
+            if (fieldIdentifier.FieldName == nameof(FizzBuzzModel.FizzValue))
             {
                 if (fizzbuzz.FizzValue >= fizzbuzz.BuzzValue)
                 {
                     validationMessageStore.Add(fieldIdentifier, "The fizz value must be less than the buzz value.");
                 }
             }
-            else if(fieldIdentifier.FieldName == nameof(FizzBuzzModel.BuzzValue))
+            else if (fieldIdentifier.FieldName == nameof(FizzBuzzModel.BuzzValue))
             {
                 if (fizzbuzz.BuzzValue <= fizzbuzz.FizzValue)
                 {

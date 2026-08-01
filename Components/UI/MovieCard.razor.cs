@@ -10,7 +10,7 @@ namespace BlazorCodeChallenge.Components.UI
         [Parameter, EditorRequired]
         public Movie Movie { get; set; } = null!;
 
-        [Parameter] 
+        [Parameter]
         public EventCallback OnChange { get; set; }
 
         bool isFavorite;
@@ -37,7 +37,7 @@ namespace BlazorCodeChallenge.Components.UI
             }
             else
             {
-                await MovieFavoritesService.RemoveFavorite(Movie); 
+                await MovieFavoritesService.RemoveFavorite(Movie);
                 isFavorite = false;
             }
             await OnChange.InvokeAsync();

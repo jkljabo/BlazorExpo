@@ -37,7 +37,7 @@ public partial class MortgageCalculator
         loan = LoanUtils.GetPayments(loan);
     }
 
-    private void ShowScheduleToggle() 
+    private void ShowScheduleToggle()
     {
         if (showSchedule)
         {

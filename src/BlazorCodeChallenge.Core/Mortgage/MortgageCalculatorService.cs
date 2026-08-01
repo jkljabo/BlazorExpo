@@ -10,8 +10,7 @@ public sealed class MortgageCalculatorService
     : IMortgageCalculatorService
 {
     /// <inheritdoc />
-    public MortgageCalculationResponse Calculate(
-        MortgageCalculationRequest request)
+    public MortgageCalculationResponse Calculate(MortgageCalculationRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
 
@@ -73,64 +72,8 @@ public sealed class MortgageCalculatorService
         };
     }
 
-    //private static IReadOnlyList<MortgagePaymentDetail> BuildPaymentSchedule(
-    //    decimal loanAmount, decimal monthlyPayment, decimal annualInterestRate, 
-    //    int termYears, decimal extraMonthlyPrincipal)
-    //{
-    //    int numberOfPayments = termYears * 12;
-    //    decimal monthlyRate = annualInterestRate / 100m / 12m;
-
-    //    var schedule = new List<MortgagePaymentDetail>(numberOfPayments);
-
-    //    decimal remainingBalance = loanAmount;
-    //    decimal totalRoundedPrincipal = 0m;
-
-    //    for (int paymentNumber = 1; paymentNumber <= numberOfPayments; paymentNumber++)
-    //    {
-    //        decimal interest = remainingBalance * monthlyRate;
-    //        decimal principal = monthlyPayment - interest;
-
-    //        principal += extraMonthlyPrincipal;
-
-    //        if (principal > remainingBalance)
-    //        {
-    //            principal = remainingBalance;
-    //        }
-
-    //        remainingBalance -= principal;
-
-    //        decimal roundedInterest = Math.Round(interest, 2);
-    //        decimal roundedPrincipal = Math.Round(principal, 2);
-
-    //        // TODO: Revisit rounding reconciliation for early payoff loans.
-    //        // if (paymentNumber == numberOfPayments)
-    //        // {
-    //        //     roundedPrincipal = loanAmount - totalRoundedPrincipal;
-    //        // }
-
-    //        totalRoundedPrincipal += roundedPrincipal;
-
-    //        schedule.Add(new MortgagePaymentDetail
-    //        {
-    //            PaymentNumber = paymentNumber,
-    //            Payment = Math.Round(monthlyPayment, 2),
-    //            Interest = roundedInterest,
-    //            Principal = roundedPrincipal,
-    //            RemainingBalance = Math.Round(remainingBalance, 2)
-    //        });
-
-    //        // Stop when paid off
-    //        if (remainingBalance <= 0.01m)
-    //        {
-    //            break;
-    //        }
-    //    }
-
-    //    return schedule;
-    //}
-
     private static MortgageScheduleBuilder BuildPaymentSchedule(
-        decimal loanAmount, decimal monthlyPayment, 
+        decimal loanAmount, decimal monthlyPayment,
         decimal annualInterestRate, decimal extraMonthlyPrincipal)
     {
         int paymentNumber = 0;
@@ -167,7 +110,7 @@ public sealed class MortgageCalculatorService
             bool isFinalPayment = remainingBalance <= 0.01m;
 
             //  schedule.Add(...);
-            schedule.Add(paymentNumber, (principal + interest), principal, 
+            schedule.Add(paymentNumber, (principal + interest), principal,
                 interest, remainingBalance, isFinalPayment);
 
             // End
@@ -207,7 +150,7 @@ public sealed class MortgageCalculatorService
         /// <param name="interest"></param>
         /// <param name="remainingBalance"></param>
         /// <param name="isFinalPayment"></param>
-        public void Add(int paymentNumber, decimal payment, decimal principal, 
+        public void Add(int paymentNumber, decimal payment, decimal principal,
             decimal interest, decimal remainingBalance, bool isFinalPayment)
         {
             decimal roundedPrincipal;
