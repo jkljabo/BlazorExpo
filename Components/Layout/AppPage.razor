@@ -1,0 +1,49 @@
+﻿@* 
+    AppPage
+    Provides a reusable page container with optional background image support.
+*@
+
+<div class="app-page @CssClass"
+     style="@BackgroundStyle">
+
+    <div class="container-xxl">
+
+        @ChildContent
+
+    </div>
+
+</div>
+
+@code {
+
+    /// <summary>
+    /// Gets or sets the content rendered within the page.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background image for the page.
+    /// </summary>
+    [Parameter]
+    public string? BackgroundImage { get; set; }
+
+    /// <summary>
+    /// Gets or sets additional CSS classes applied to the page container.
+    /// </summary>
+    [Parameter]
+    public string? CssClass { get; set; }
+
+    private string? BackgroundStyle
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(BackgroundImage))
+            {
+                return null;
+            }
+
+            return $"background-image: url('{BackgroundImage}');";
+        }
+    }
+}
