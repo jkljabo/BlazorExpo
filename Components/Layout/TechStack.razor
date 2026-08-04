@@ -1,0 +1,35 @@
+﻿@*--------------------------------------------------------------
+    TechStack
+    Displays the technologies used to build the current feature.
+--------------------------------------------------------------*@
+
+<section class="tech-stack">
+
+    <p class="tech-stack-title">
+        Built with pride using:
+    </p>
+
+    <div class="hstack my-2">
+
+        @foreach (var technology in Items)
+        {
+            <div title="@technology.Name" aria-label="@technology.Name">
+
+                <i class="tech-stack-icon @technology.IconClass me-1"></i>
+
+            </div>
+        }
+
+    </div>
+
+</section>
+
+@code {
+
+    /// <summary>
+    /// Gets or sets the technologies displayed by the component.
+    /// </summary>
+    [Parameter]
+    public IReadOnlyList<TechStackItem> Items { get; set; } = [];
+
+}

@@ -1,0 +1,49 @@
+﻿@*--------------------------------------------------------------
+    AppPageHeader
+    Provides a reusable page heading with an optional subtitle
+    and additional header content.
+--------------------------------------------------------------*@
+
+<header class="app-page-header">
+
+    <h1 class="app-page-title">
+        @Title
+    </h1>
+
+    @if (!string.IsNullOrWhiteSpace(Subtitle))
+    {
+        <p class="app-page-subtitle">
+            @Subtitle
+        </p>
+    }
+
+    @if (ChildContent is not null)
+    {
+        <div class="app-page-header-content">
+            @ChildContent
+        </div>
+    }
+
+</header>
+
+@code {
+
+    /// <summary>
+    /// Gets or sets the page title.
+    /// </summary>
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the optional page subtitle.
+    /// </summary>
+    [Parameter]
+    public string? Subtitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets additional content displayed beneath the page heading.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+}
