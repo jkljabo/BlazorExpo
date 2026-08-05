@@ -1,0 +1,43 @@
+﻿@*--------------------------------------------------------------
+    AppCard
+    Provides a reusable Bootstrap card with an optional title.
+--------------------------------------------------------------*@
+
+<div class="app-card card @CssClass">
+
+    <div class="card-body">
+
+        @if (!string.IsNullOrWhiteSpace(Title))
+        {
+            <h2 class="app-card-title">
+                @Title
+            </h2>
+        }
+
+        @ChildContent
+
+    </div>
+
+</div>
+
+@code {
+
+    /// <summary>
+    /// Gets or sets the card title.
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets the card content.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets additional CSS classes.
+    /// </summary>
+    [Parameter]
+    public string? CssClass { get; set; }
+
+}

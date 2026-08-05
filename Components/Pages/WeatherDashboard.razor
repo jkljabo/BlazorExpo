@@ -96,9 +96,7 @@
 
                         <div class="col-lg-6">
 
-                            <div class="card p-3">
-
-                                <h2>Current Conditions</h2>
+                            <AppCard Title="Current Conditions">
 
                                 <p>
                                     <strong>@CurrentPeriod.Name</strong>
@@ -120,21 +118,19 @@
                                     @CurrentPeriod.ShortForecast
                                 </p>
 
-                            </div>
+                            </AppCard>
 
                         </div>
 
                         <div class="col-lg-6">
 
-                            <div class="card p-3">
-
-                                <h2>Radar</h2>
+                            <AppCard Title="Radar">
 
                                 <img class="img-fluid"
-                                        src="@RadarUrl"
-                                        alt="Radar Image" />
+                                    src="@RadarUrl"
+                                    alt="Radar Image" />
 
-                            </div>
+                            </AppCard>
 
                         </div>
 
@@ -142,9 +138,8 @@
                 </AppSection>
 
                 <AppSection>
-                    <div class="card p-3">
-
-                        <h2>5 Day Forecast</h2>
+                    
+                    <AppCard Title="5 Day Forecast">
 
                         <table class="table">
 
@@ -174,7 +169,8 @@
 
                         </table>
 
-                    </div>
+                    </AppCard>
+
                 </AppSection>
             }
         </div>
