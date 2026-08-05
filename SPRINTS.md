@@ -57,6 +57,7 @@ This document summarizes the major development milestones throughout the evoluti
 ### Refactored
 
 - Mortgage Calculator migrated to reusable layout components
+- Weather Dashboard migrated to reusable layout components
 
 ### Architecture
 
