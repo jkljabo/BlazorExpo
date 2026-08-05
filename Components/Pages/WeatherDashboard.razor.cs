@@ -1,6 +1,7 @@
-﻿using BlazorCodeChallenge.Services;
-using BlazorCodeChallenge.Constants;
+﻿using BlazorCodeChallenge.Constants;
 using BlazorCodeChallenge.Models;
+using BlazorCodeChallenge.Models.UI;
+using BlazorCodeChallenge.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorCodeChallenge.Components.Pages
@@ -68,5 +69,47 @@ namespace BlazorCodeChallenge.Components.Pages
             RadarUrl =
                 $"https://radar.weather.gov/ridge/standard/{weather.RadarStation}_loop.gif";
         }
+
+        /// <summary>
+        /// Technologies showcased by the Weather Dashboard page.
+        /// </summary>
+        private static readonly IReadOnlyList<TechStackItem> Technologies =
+        [
+            new()
+            {
+                Name = "Blazor",
+                IconClass = "devicon-blazor-original colored"
+            },
+
+            new()
+            {
+                Name = "C#",
+                IconClass = "devicon-csharp-plain colored"
+            },
+
+            new()
+            {
+                Name = "Bootstrap",
+                IconClass = "devicon-bootstrap-plain colored"
+            },
+
+            new()
+            {
+                Name = "JavaScript",
+                IconClass = "devicon-javascript-plain colored"
+            },
+
+            new()
+            {
+                Name = "HTML5",
+                IconClass = "devicon-html5-plain colored"
+            },
+
+            new()
+            {
+                Name = "CSS3",
+                IconClass = "devicon-css3-plain colored"
+            }
+        ];
     }
 }

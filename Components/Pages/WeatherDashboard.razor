@@ -8,141 +8,187 @@
 <PageTitle>Weather Dashboard</PageTitle>
 
 <!--Page Background-->
-<div class="pageStyle h-100 d-flex justify-content-center">
-    
-    <div class="row row-cols-1 row-cols-xl-2 container-xxl h-100">
-        <div class="col d-flex flex-column justify-content-xl-center order-last order-xl-first">
+<AppPage BackgroundImage="images/Home/LandingPageBG.png">
 
-            @* <h3>National Weather Service Dashboard</h3> *@
-            <div class="title">NWS Dashboard</div>
+    <div class="row g-4 align-items-start">
 
-            <div class="subTitle">Showcasing Modern Web Development Skills Through the use of public APIs</div>
+        <div class="col-lg-8">
 
-            <div class="mt-3">
-                <h4>What is the National Weather Service Dashboard?</h4>
-                <p>This is a customizable dashboard based on the template provided by Visual Studio built out to connect to the National Weather Service API. The user can enter address or Latitude and Longitude information and the dashboard with provide you with the current weather condition and radar view as well as a 5 day forcast for your area.</p>
-            </div>
+            <AppPageHeader Title="National Weather Service Dashboard"
+                           Subtitle="Explore current weather conditions and forecasts across the United States using the National Weather Service API." />
 
-            <div class="card p-3 mb-3">
+            <AppSection>
 
-                <div class="row">
+                <h2>What is the National Weather Service Dashboard?</h2>
 
-                    <div class="col-md-4">
-                        <label>City</label>
-                        <input class="form-control" @bind="City" />
+                <p>Search by city, ZIP code, or geographic coordinates to view current weather conditions, radar imagery, and a five-day forecast using the National Weather Service API.</p>
+
+            </AppSection>
+
+            <AppSection>
+
+                <h2>Search Location</h2>
+                <div class="card p-3">
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <label for="city">City</label>
+
+                            <input id="city"
+                                   class="form-control"
+                                   @bind="City" />
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="state">State</label>
+
+                            <input id="state"
+                                class="form-control" 
+                                @bind="State" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="zipcode">Zip Code</label>
+
+                            <input id="zipcode" 
+                                class="form-control" 
+                                @bind="ZipCode" />
+                        </div>
+
                     </div>
 
-                    <div class="col-md-2">
-                        <label>State</label>
-                        <input class="form-control" @bind="State" />
+                    <hr />
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <label for="latitude">Latitude</label>
+
+                            <input id="latitude" 
+                                class="form-control" 
+                                @bind="Latitude" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="longitude">Longitude</label>
+
+                            <input id="longitude" 
+                                class="form-control" 
+                                @bind="Longitude" />
+                        </div>
+
                     </div>
 
-                    <div class="col-md-3">
-                        <label>Zip Code</label>
-                        <input class="form-control" @bind="ZipCode" />
-                    </div>
+                    <button class="btn btn-primary mt-3"
+                            @onclick="LoadWeather">
+                        View Forecast
+                    </button>
 
                 </div>
 
-                <hr />
-
-                <div class="row">
-
-                    <div class="col-md-3">
-                        <label>Latitude</label>
-                        <input class="form-control" @bind="Latitude" />
-                    </div>
-
-                    <div class="col-md-3">
-                        <label>Longitude</label>
-                        <input class="form-control" @bind="Longitude" />
-                    </div>
-
-                </div>
-
-                <button class="btn btn-primary mt-3"
-                        @onclick="LoadWeather">
-                    Get Weather
-                </button>
-
-            </div>
+            </AppSection>
 
             @if (CurrentPeriod != null)
             {
-                <div class="card p-3 mb-3">
+                <AppSection>
+                    <div class="row g-4">
 
-                    <h4>Current Conditions</h4>
+                        <div class="col-lg-6">
 
-                    <p>
-                        <strong>@CurrentPeriod.Name</strong>
-                    </p>
+                            <div class="card p-3">
 
-                    <p>
-                        Temperature:
-                        @CurrentPeriod.Temperature
-                        @CurrentPeriod.TemperatureUnit
-                    </p>
+                                <h2>Current Conditions</h2>
 
-                    <p>
-                        Wind:
-                        @CurrentPeriod.WindSpeed
-                        @CurrentPeriod.WindDirection
-                    </p>
+                                <p>
+                                    <strong>@CurrentPeriod.Name</strong>
+                                </p>
 
-                    <p>
-                        @CurrentPeriod.ShortForecast
-                    </p>
+                                <p>
+                                    Temperature:
+                                    @CurrentPeriod.Temperature
+                                    @CurrentPeriod.TemperatureUnit
+                                </p>
 
-                </div>
+                                <p>
+                                    Wind:
+                                    @CurrentPeriod.WindSpeed
+                                    @CurrentPeriod.WindDirection
+                                </p>
 
-                <div class="card p-3 mb-3">
+                                <p>
+                                    @CurrentPeriod.ShortForecast
+                                </p>
 
-                    <h4>Radar</h4>
+                            </div>
 
-                    <img class="img-fluid"
-                         src="@RadarUrl"
-                         alt="Radar Image" />
+                        </div>
 
-                </div>
+                        <div class="col-lg-6">
 
-                <div class="card p-3">
+                            <div class="card p-3">
 
-                    <h4>5 Day Forecast</h4>
+                                <h2>Radar</h2>
 
-                    <table class="table">
+                                <img class="img-fluid"
+                                        src="@RadarUrl"
+                                        alt="Radar Image" />
 
-                        <thead>
-                            <tr>
-                                <th>Period</th>
-                                <th>Temp</th>
-                                <th>Forecast</th>
-                            </tr>
-                        </thead>
+                            </div>
 
-                        <tbody>
+                        </div>
 
-                            @foreach (var period in ForecastPeriods.Take(10))
-                            {
+                    </div>
+                </AppSection>
+
+                <AppSection>
+                    <div class="card p-3">
+
+                        <h2>5 Day Forecast</h2>
+
+                        <table class="table">
+
+                            <thead>
                                 <tr>
-                                    <td>@period.Name</td>
-                                    <td>
-                                        @period.Temperature°
-                                        @period.TemperatureUnit
-                                    </td>
-                                    <td>@period.ShortForecast</td>
+                                    <th>Period</th>
+                                    <th>Temp</th>
+                                    <th>Forecast</th>
                                 </tr>
-                            }
+                            </thead>
 
-                        </tbody>
+                            <tbody>
 
-                    </table>
+                                @foreach (var period in ForecastPeriods.Take(10))
+                                {
+                                    <tr>
+                                        <td>@period.Name</td>
+                                        <td>
+                                            @period.Temperature°
+                                            @period.TemperatureUnit
+                                        </td>
+                                        <td>@period.ShortForecast</td>
+                                    </tr>
+                                }
 
-                </div>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </AppSection>
             }
-            </div>
-            <div class="col d-flex flex-column justify-content-center">
-            <img src="/images/NWSDashboard/NWSLogo.png" class="img-fluid" />
-            </div>
-            
         </div>
-</div>
+        <div class="col-lg-4 text-center">
+            <img class="img-fluid sticky-top weather-logo"
+                 src="/images/NWSDashboard/NWSLogo.png"
+                 alt="National Weather Service logo" />
+        </div>
+    </div>
+
+    <AppSection>
+
+        <TechStack Items="Technologies" />
+
+    </AppSection>
+
+</AppPage>
