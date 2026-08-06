@@ -1,8 +1,14 @@
-﻿.app-page {
+﻿/*.app-page {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     min-height: 100vh;
     padding-top: 3rem;
+    padding-bottom: 3rem;
+}*/
+
+.app-page {
+    min-height: 100vh;
+    padding-top: 4rem;
     padding-bottom: 3rem;
 }

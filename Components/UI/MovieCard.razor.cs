@@ -13,7 +13,7 @@ namespace BlazorCodeChallenge.Components.UI
         [Parameter]
         public EventCallback OnChange { get; set; }
 
-        bool isFavorite;
+        private bool isFavorite;
 
         protected override async Task OnParametersSetAsync()
         {

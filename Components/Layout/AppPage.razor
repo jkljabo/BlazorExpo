@@ -4,7 +4,7 @@
 *@
 
 <div class="app-page @CssClass"
-     style="@BackgroundStyle">
+     style="@BackgroundCss">
 
     <div class="container-xxl">
 
@@ -23,10 +23,41 @@
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the background image for the page.
+    /// Gets or sets the page background image.
     /// </summary>
     [Parameter]
     public string? BackgroundImage { get; set; }
+
+    /// <summary>
+    /// Gets or sets one or more CSS background layers (typically gradients)
+    /// rendered above the background image.
+    /// </summary>
+    [Parameter]
+    public string? BackgroundOverlay { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS background-position.
+    /// </summary>
+    [Parameter]
+    public string BackgroundPosition { get; set; } = "center";
+
+    /// <summary>
+    /// Gets or sets the CSS background-size.
+    /// </summary>
+    [Parameter]
+    public string BackgroundSize { get; set; } = "cover";
+
+    /// <summary>
+    /// Gets or sets the CSS background-repeat.
+    /// </summary>
+    [Parameter]
+    public string BackgroundRepeat { get; set; } = "no-repeat";
+
+    /// <summary>
+    /// Gets or sets the default text color for the page.
+    /// </summary>
+    [Parameter]
+    public string? ForegroundColor { get; set; }
 
     /// <summary>
     /// Gets or sets additional CSS classes applied to the page container.
@@ -34,16 +65,41 @@
     [Parameter]
     public string? CssClass { get; set; }
 
-    private string? BackgroundStyle
+    private string? BackgroundCss
     {
         get
         {
-            if (string.IsNullOrWhiteSpace(BackgroundImage))
-            {
+            var layers = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(BackgroundOverlay))
+                layers.Add(BackgroundOverlay);
+
+            if (!string.IsNullOrWhiteSpace(BackgroundImage))
+                layers.Add($"url('{BackgroundImage}')");
+
+            if (layers.Count == 0)
                 return null;
+
+            var styles = new List<string>
+            {
+                $"background: {string.Join(", ", layers)};"
+            };
+
+            if (!string.IsNullOrWhiteSpace(BackgroundPosition))
+                styles.Add($"background-position: {BackgroundPosition};");
+
+            if (!string.IsNullOrWhiteSpace(BackgroundSize))
+                styles.Add($"background-size: {BackgroundSize};");
+
+            if (!string.IsNullOrWhiteSpace(BackgroundRepeat))
+                styles.Add($"background-repeat: {BackgroundRepeat};");
+
+            if (!string.IsNullOrWhiteSpace(ForegroundColor))
+            {
+                styles.Add($"color: {ForegroundColor};");
             }
 
-            return $"background-image: url('{BackgroundImage}');";
+            return string.Join(" ", styles);
         }
     }
 }

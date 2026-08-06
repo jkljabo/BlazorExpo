@@ -1,48 +1,31 @@
 ﻿
-.pageStyle {
-    background: linear-gradient(to right, rgba(181,53,132,.95) 0%, rgba(8,7,102, .80) 40%, rgba(8,7,102, .95) 100%), url("/images/MovieTime/NowPlayingBG.jpg");
-
-    color: var(--cf-light-color);
-    /*  background: url(images/Home/LandingPageBG.png);*/
-    /*  background: url(images/NEWLandingPageBG.png);*/
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+.movie-intro {
+    max-width: 580px;
 }
 
-.title {
-    font-family: var(--cf-title-font);
-    font-size: 2rem;
-    /*  color: var(--cf-title-color);*/
-    color: var(--cf-light-color);
-    line-height: 2rem;
+.movie-hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.subTitle {
-    font-family: var(--cf-body-font);
-    font-size: 1rem;
-}
-
-.devicons {
-    font-size: 2rem;
-}
-
-/*  Large devices (desktops, 992px and up */
 @media (min-width: 992px) {
-    .title {
-        font-family: var(--cf-title-font);
-        font-size: 3rem;
-        /*  color: var(--cf-title-color);*/
-        color: var(--cf-light-color);
-        line-height: 3rem;
-    }
 
-    .subTitle {
-        font-family: var(--cf-body-font);
-        font-size: 1.5rem;
-    }
-
-    .devicons {
-        font-size: 1.5rem;
+    .movie-hero {
+        min-height: 80vh;
     }
 }
+
+.movie-links {
+    flex-wrap: wrap;
+}
+
+.movie-hero-image {
+    width: 100%;
+    max-width: 620px;
+}
+
+.movie-page-layout {
+    min-height: calc(100vh - 8rem);
+}
+
