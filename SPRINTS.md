@@ -1,8 +1,8 @@
 ﻿# Sprint History
 
-This document tracks the major development milestones for BlazorExpo.
+This document records the major milestones in the evolution of BlazorExpo.
 
-BlazorExpo is developed using an iterative sprint-based approach with each sprint focused on delivering a cohesive set of features, architectural improvements, or quality enhancements.
+BlazorExpo is developed using an iterative, sprint-based workflow focused on delivering cohesive sets of features, architectural improvements, and quality enhancements.
 
 The project follows Semantic Versioning for sprint milestones and Git release tags.
 
@@ -16,6 +16,19 @@ Each sprint concludes with:
 - Smoke testing of affected features
 
 This document summarizes the major development milestones throughout the evolution of BlazorExpo rather than individual commits. Detailed implementation history is available through the Git commit history and release tags.
+
+> **Note:** Sprint History captures significant architectural and feature milestones rather than day-to-day implementation details. Individual code changes are documented in the Git commit history.
+
+---
+
+## Release Timeline
+
+The following timeline provides a high-level overview of major project milestones and their current status.
+
+| Version | Focus | Status |
+|---------|-------|--------|
+| Sprint 9 | UI Component Architecture | 🚧 In Progress |
+| v0.8.0 | Mortgage Engine & API Polish | ✅ Released |
 
 ---
 
@@ -53,28 +66,43 @@ This document summarizes the major development milestones throughout the evoluti
 - TechStack component
 - TechStackItem model
 - Shared animations stylesheet
+- AppCard reusable component
+- Layered background support for AppPage
+- Configurable page foreground color
+- Configurable background overlay rendering
 
 ### Refactored
 
-- Mortgage Calculator migrated to reusable layout components
-- Weather Dashboard migrated to reusable layout components
+- Mortgage Calculator migrated to shared layout components
+- Weather Dashboard migrated to shared layout components
+- Movie Time migrated to shared layout components
 
 ### Architecture
 
 - Introduced reusable layout components (AppPage, AppPageHeader, AppSection)
-- Introduced reusable UI components (TechStack)
+- Introduced reusable UI components (AppCard, TechStack)
+- Expanded AppPage into a configurable page shell
+- Added layered backgrounds and configurable page foreground styling
 - Established shared animation utilities
 - Continued CSS isolation strategy
 - Reduced page-specific layout duplication
+- Improved consistency across feature pages
 
 ### Current Status
 
-- Sprint 9 is actively under development.
+- Core shared layout framework established.
+- Three major feature pages migrated to the new component architecture.
 - Existing functionality remains fully operational.
-- New reusable UI components are being introduced incrementally.
+- Sprint 9 continues with migration of remaining feature pages.
 
 ### Upcoming
 
-- Continue migrating remaining feature pages to reusable layout components.
-- Expand the shared UI component library.
-- Improve architectural consistency across BlazorExpo.
+- Continue migrating remaining feature pages to the shared layout framework.
+- Evaluate additional reusable UI patterns discovered during page migrations.
+- Continue improving architectural consistency across BlazorExpo.
+
+---
+
+**Sprint 9 Milestone**
+
+Sprint 9 marks the evolution of BlazorExpo from a collection of feature-focused pages into a shared application framework that emphasizes consistency, component reuse, maintainability, and a cohesive user experience.
