@@ -43,37 +43,37 @@ namespace BlazorCodeChallenge.Components.Pages
             new()
             {
                 Name = "Blazor",
-                IconClass = "devicon-blazor-original"
+                IconClass = "devicon-blazor-original colored"
             },
 
             new()
             {
                 Name = "C#",
-                IconClass = "devicon-csharp-plain"
+                IconClass = "devicon-csharp-plain colored"
             },
 
             new()
             {
                 Name = "Bootstrap",
-                IconClass = "devicon-bootstrap-plain"
+                IconClass = "devicon-bootstrap-plain colored"
             },
 
             new()
             {
                 Name = "JavaScript",
-                IconClass = "devicon-javascript-plain"
+                IconClass = "devicon-javascript-plain colored"
             },
 
             new()
             {
                 Name = "HTML5",
-                IconClass = "devicon-html5-plain"
+                IconClass = "devicon-html5-plain colored"
             },
 
             new()
             {
                 Name = "CSS3",
-                IconClass = "devicon-css3-plain"
+                IconClass = "devicon-css3-plain colored"
             }
         ];
     }

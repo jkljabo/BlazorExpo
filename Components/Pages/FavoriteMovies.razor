@@ -13,40 +13,56 @@
 
 <PageTitle>Favorite Movies</PageTitle>
 
-<div class="container-xxl py-3">
-    <h1>
-        <i class="bi bi-heart-fill text-danger"></i>
-        Favorites Movie Listings
-    </h1>
-    <p class="lead italic">Browse your favorites listing of movies from The Movie DataBase.</p>
-    @if (favoriteMovies is null)
-    {
-        <div class="d-flex justify-content-center align-items-center">
-            @if (isLoading)
-            {
-                <h2 class="text-muted">Loading favorite movies...</h2>
-            }
-            else if (!string.IsNullOrEmpty(errorMessage))
-            {
-                <div class="alert alert-danger" role="alert">
-                    @errorMessage
+<AppPage>
+    <div class="container-xxl">
+    
+        <AppPageHeader Title="Favorites Movies"
+                       Subtitle="Browse and manage your saved favorite movies."
+                       IconClass="bi bi-heart-fill"
+                       IconCssClass="text-danger" />
+
+        @if (favoriteMovies is null)
+        {
+            <AppSection CssClass="text-center py-5">
+
+                @if (isLoading)
+                {
+                    <h2 class="text-muted">Loading favorite movies...</h2>
+                }
+                else if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @errorMessage
+                    </div>
+                }
+                else
+                {
+                    <h2 class="text-muted">You haven't added any favorite movies yet.</h2>
+                }
+
+            </AppSection>
+        }
+        else
+        {
+            <AppSection>
+
+                <div class="row g-3">
+                    @foreach (var movie in favoriteMovies)
+                    {
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <MovieCard Movie="movie" OnChange="LoadFavoriteMoviesAsync" />
+                        </div>
+                    }
                 </div>
-            }
-            else
-            {
-                <h2 class="text-muted">You do not have any favorite movies yet.</h2>
-            }
-        </div>
-    }
-    else
-    {
-        <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-lg-4">
-            @foreach (var movie in favoriteMovies)
-            {
-                <div class="col">
-                    <MovieCard Movie="movie" OnChange="OnParametersSetAsync"/>
-                </div>
-            }
-        </div>
-    }
-</div>
+            </AppSection>
+        }
+    </div>
+
+    <AppSection>
+
+        <TechStack Items="Technologies"
+                   Variant="TechStackVariant.Colored" />
+
+    </AppSection>
+
+</AppPage>

@@ -15,20 +15,11 @@
 <AppPage>
 
     <div class="container-xxl">
-    
+        
         <AppPageHeader Title="Movie Listing"
-                       Subtitle="Browse movies currently playing in theaters using data from The Movie Database API." />
-
-        <AppSection>
-
-            <h2>Now Playing</h2>
-
-            <p>
-                Browse the latest theatrical releases powered by The Movie Database API.
-                Select a movie to explore additional details.
-            </p>
-
-        </AppSection>
+                       Subtitle="Browse movies currently playing in theaters using data from The Movie Database API."
+                       IconClass="bi bi-film"
+                       IconCssClass="text-primary" />
 
         @if(movies is null)
         {

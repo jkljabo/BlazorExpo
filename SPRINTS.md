@@ -81,8 +81,10 @@ The following timeline provides a high-level overview of major project milestone
 
 - Introduced reusable layout components (AppPage, AppPageHeader, AppSection)
 - Introduced reusable UI components (AppCard, TechStack)
+- Introduced a centralized design system built on reusable design tokens and configurable UI components
 - Expanded AppPage into a configurable page shell
 - Added layered backgrounds and configurable page foreground styling
+- Established application-wide design tokens governing layout, spacing, typography, animation, and shared UI styling
 - Established shared animation utilities
 - Continued CSS isolation strategy
 - Reduced page-specific layout duplication

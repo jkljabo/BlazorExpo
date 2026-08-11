@@ -1,0 +1,29 @@
+﻿:root {
+    /* Header */
+    --app-page-header-icon-gap: .5rem;
+    --app-page-header-spacing: 1.5rem;
+    --app-page-header-max-width: 900px;
+
+    /* Layout */
+    --app-page-width: 1400px;
+    --app-content-width: 580px;
+    --app-hero-width: 620px;
+
+    /* Spacing */
+    --app-section-gap: 2rem;
+    --app-card-gap: 1rem;
+
+    /* Typography */
+    --app-title-max-width: 42rem;
+
+    /* Icons */
+    --app-tech-stack-icon-size: 2rem;
+    --app-tech-stack-icon-size-lg: 1.5rem;
+    --app-tech-stack-monochrome-color: var(--cf-light-color);
+
+    /* Motion */
+    --app-animation-speed: .35s;
+
+    /* Border Radius */
+    --app-radius: .75rem;
+}

@@ -1,5 +1,6 @@
 ﻿using BlazorCodeChallenge.Constants;
 using BlazorCodeChallenge.Models;
+using BlazorCodeChallenge.Models.UI;
 using BlazorCodeChallenge.Services;
 
 namespace BlazorCodeChallenge.Components.Pages
@@ -33,5 +34,47 @@ namespace BlazorCodeChallenge.Components.Pages
         {
             AppState.SetFooterBrand(FooterBrands.MovieTime);
         }
+
+        /// <summary>
+        /// Technologies showcased by the Cool Movies page.
+        /// </summary>
+        private static readonly IReadOnlyList<TechStackItem> Technologies =
+        [
+            new()
+            {
+                Name = "Blazor",
+                IconClass = "devicon-blazor-original colored"
+            },
+
+            new()
+            {
+                Name = "C#",
+                IconClass = "devicon-csharp-plain colored"
+            },
+
+            new()
+            {
+                Name = "Bootstrap",
+                IconClass = "devicon-bootstrap-plain colored"
+            },
+
+            new()
+            {
+                Name = "JavaScript",
+                IconClass = "devicon-javascript-plain colored"
+            },
+
+            new()
+            {
+                Name = "HTML5",
+                IconClass = "devicon-html5-plain colored"
+            },
+
+            new()
+            {
+                Name = "CSS3",
+                IconClass = "devicon-css3-plain colored"
+            }
+        ];
     }
 }

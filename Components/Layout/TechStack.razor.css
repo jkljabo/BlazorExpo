@@ -3,11 +3,15 @@
 }
 
 .tech-stack-icon {
-    font-size: 2rem;
+    font-size: var(--app-tech-stack-icon-size);
 }
 
-@media (min-width: 992px) {
+.tech-stack--monochrome .tech-stack-icon {
+    color: var(--app-tech-stack-monochrome-color);
+}
+
+@media (min-width:992px) {
     .tech-stack-icon {
-        font-size: 1.5rem;
+        font-size: var(--app-tech-stack-icon-size-lg);
     }
 }

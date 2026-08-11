@@ -3,7 +3,7 @@
     Displays the technologies used to build the current feature.
 --------------------------------------------------------------*@
 
-<section class="tech-stack">
+<section class="tech-stack @VariantClass">
 
     <p class="tech-stack-title">
         Built with pride using:
@@ -24,12 +24,3 @@
 
 </section>
 
-@code {
-
-    /// <summary>
-    /// Gets or sets the technologies displayed by the component.
-    /// </summary>
-    [Parameter]
-    public IReadOnlyList<TechStackItem> Items { get; set; } = [];
-
-}
