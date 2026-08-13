@@ -10,60 +10,126 @@
 
 @inject TMDBService TMDBService
 
-<div class="container-xxl py-3">
-    <h1>
-        <i class="bi bi-search text-secondary"></i>
-        Search Movies
-    </h1>
-    <p class="lead italic">Search results from The Movie DataBase.</p>
+<AppPage>
 
-    @if (searchResults is null)
-    {
-        <div class="d-flex justify-content-center align-items-center">
+    <div class="container-xxl">
 
-            @if (string.IsNullOrEmpty(Query))
-            {
-                <h2 class="text-muted">Use the search box in nav bar to search for a movie.</h2>
-            }
-            else if (isLoading)
-            {
-                <h2 class="text-muted">Running search...</h2>
-            }
-            else if (!string.IsNullOrEmpty(errorMessage))
-            {
-                <div class="alert alert-danger" role="alert">
-                    @errorMessage
-                </div>
-            }
-            else
-            {
-                <h2 class="text-muted">No movies matched your search.</h2>
-            }
-        </div>
-    }
-    else
-    {
-        @if (searchResults.TotalResults == 0)
+        @* <h1>
+            <i class="bi bi-search text-secondary"></i>
+            Search Movies
+        </h1>
+        <p class="lead italic">Search results from The Movie Database API.</p> *@
+
+        <AppPageHeader Title="Search Movies"
+                       Subtitle="Search movies currently playing in theaters using data from The Movie Database API."
+                       IconClass="bi bi-search"
+                       IconCssClass="text-secondary" />
+
+        @if (searchResults is null)
         {
-            <div class="d-flex justify-content-center align-items-center py-5">
-                <h2 class="text-muted">
-                    No results found for "@Query". Please try a different search term.  
-                </h2>
-            </div>
+            <AppSection CssClass="text-center py-5">
+            @* <div class="d-flex justify-content-center align-items-center"> *@
+
+                @if (string.IsNullOrEmpty(Query))
+                {
+                    <h2 class="text-muted">Use the search box in nav bar to search for a movie.</h2>
+                }
+                else if (isLoading)
+                {
+                    <h2 class="text-muted">Running search...</h2>
+                }
+                else if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @errorMessage
+                    </div>
+                }
+                else
+                {
+                    <h2 class="text-muted">No movies matched your search.</h2>
+                }
+            @* </div> *@
+            </AppSection>
+        }
+        else
+        {
+            <AppSection CssClass="text-center py-5">
+                @if (searchResults.TotalResults == 0)
+                {
+                    <div class="d-flex justify-content-center align-items-center py-5">
+                        <h2 class="text-muted">
+                            No results found for "@Query". Please try a different search term.  
+                        </h2>
+                    </div>
+                }
+            </AppSection>
+
+            <AppSection>
+
+                <div class="row g-3">
+                @* <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-lg-4"> *@
+                    @foreach (var movie in searchResults.Results)
+                    {
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <MovieCard Movie="movie" />
+                        </div>
+                    }
+                </div>
+            </AppSection>
         }
 
-        <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-lg-4">
-            @foreach (var movie in searchResults.Results)
-            {
-                <div class="col">
-                    <MovieCard Movie="movie" />
-                </div>
-            }
-        </div>
-    }
+        <AppSection>
 
-</div>
+            <TechStack Items="Technologies"
+                       Variant="TechStackVariant.Colored" />
+
+        </AppSection>
+
+    </div>
+
+</AppPage>
 
 @code {
 
+    /// <summary>
+    /// Technologies showcased by the Search page.
+    /// </summary>
+    private static readonly IReadOnlyList<TechStackItem> Technologies =
+    [
+        new()
+        {
+            Name = "Blazor",
+            IconClass = "devicon-blazor-original colored"
+        },
+
+        new()
+        {
+            Name = "C#",
+            IconClass = "devicon-csharp-plain colored"
+        },
+
+        new()
+        {
+            Name = "Bootstrap",
+            IconClass = "devicon-bootstrap-plain colored"
+        },
+
+        new()
+        {
+            Name = "JavaScript",
+            IconClass = "devicon-javascript-plain colored"
+        },
+
+        new()
+        {
+            Name = "HTML5",
+            IconClass = "devicon-html5-plain colored"
+        },
+
+        new()
+        {
+            Name = "CSS3",
+            IconClass = "devicon-css3-plain colored"
+        }
+    ];
 }

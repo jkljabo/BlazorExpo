@@ -1,0 +1,43 @@
+﻿<AppCard CssClass="@CardCssClass">
+
+    <div class="theme-card-body">
+
+        <h5 class="theme-card-heading">
+            @DisplayName
+        </h5>
+
+        <p class="theme-card-text">
+            @Description
+        </p>
+
+        <div class="theme-card-palette">
+            @foreach (var weight in PaletteWeights)
+            {
+                <div class="theme-card-color"
+                     style="background-color: var(--cf-@Theme-@weight)">
+                </div>
+            }
+        </div>
+
+        <div class="theme-card-footer">
+
+            @if (IsCurrentTheme)
+            {
+                <button class="btn btn-success w-100" disabled>
+                    <i class="bi bi-check-circle me-1"></i>
+                    Current Theme
+                </button>
+            }
+            else
+            {
+                <button class="btn btn-primary w-100"
+                        @onclick="SelectTheme">
+                    Apply Theme
+                </button>
+            }
+
+        </div>
+
+    </div>
+
+</AppCard>

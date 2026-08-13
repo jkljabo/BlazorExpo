@@ -1,90 +1,47 @@
 ﻿@page "/themes"
 
-@using BlazorCodeChallenge.Constants
-@using BlazorCodeChallenge.Services
-@inject AppState AppState
-@inject IJSRuntime JS
 @layout HomeLayout
 
 <PageTitle>Theme Templates</PageTitle>
 
-<div class="mt-5">
-    <h1 class="text-center fw-bold text-uppercase">Built in themes for your templates</h1>
+<AppPage BackgroundImage="images/Home/LandingPageBG.png">
 
-    <div class="d-flex flex-wrap gap-3 align-items-center justify-content-center my-3">
-        @foreach(string theme in siteThemes)
-        {
-            <div class="card" data-cf-theme="@theme">
-                <div class="card-body">
-                    <h3 class="card-title d-flex align-items-center fw-bold text-uppercase">
-                        Theme:&nbsp;<span style="color: var(--cf-theme-core)">@theme</span>
-                        <button class="ms-auto btn btn-sm btn-primary fw-bold text-uppercase" @onclick="() => ChangeTheme(theme)">Set Theme</button>
-                    </h3>
-                    <h6 class="small fw-bold text-uppercase mt-3">Palette</h6>
-                    <div class="d-flex gap-0 align-items-center">
-                        @foreach (string weight in Weights)
-                        {
-                            <div style="background-color: var(--cf-theme-@weight); width: 16px; height: 16px;"></div>
-                        }
-                    </div>
-                    <div class="my-3">
-                        <button class="btn btn-primary m-2">Primary Button</button>
-                        <button class="btn btn-light m-2">Light Button</button>
-                        <button class="btn btn-dark m-2">Dark Button</button>
-                    </div>
-                    <div>
-                        Text with a <a href="#">clickable link</a> in the middle.
-                    </div>
+    <AppPageHeader Title="Theme Gallery"
+                    Subtitle="Preview and apply the built-in application themes."
+                    IconClass="bi bi-palette"
+                    IconCssClass="text-primary" />
+
+    <AppSection>
+
+        <p>
+        Browse the built-in themes available throughout BlazorExpo. Each theme demonstrates the application's design system, including color palettes, buttons, typography, and interactive elements. Select Set Theme to preview the application using that theme.
+        </p>
+
+    </AppSection>
+
+    <AppSection>
+
+        <div class="row g-4">
+            @foreach (var theme in SiteThemes)
+            {
+                <div class="col-md-6 col-xl-4">
+
+                    <ThemeCard Theme="@theme"
+                               PaletteWeights="PaletteWeights"
+                               IsCurrentTheme="@(CurrentTheme == theme)"
+                               OnSelected="ChangeTheme" />
+
                 </div>
-            </div>
-        }
-    </div>
-</div>
+            }
+        </div>
 
+    </AppSection>
 
-@code {
+    <AppSection>
 
-    protected override void OnInitialized()
-    {
-        AppState.SetFooterBrand(FooterBrands.MagicSquareCode);
-    }
+        <TechStack Items="Technologies"
+                   Variant="TechStackVariant.Colored" />
 
-    public async Task ChangeTheme(string theme)
-    {
-        // setTheme is defined in index.html
-        await JS.InvokeVoidAsync("setTheme", theme);
-        AppState.SetTheme(theme);
-    }
+    </AppSection>
 
-
-    List<string> siteThemes = new(){
-        "code-magic",
-        "blue",
-        "indigo",
-        "purple",
-        "pink",
-        "red",
-        "orange",
-        "yellow",
-        "green",
-        "teal",
-        "cyan",
-        "gray"
-    };
-
-    List<string> Weights = new()
-    {
-        "core",
-        "100",
-        "150",
-        "200",
-        "300",
-        "400",
-        "500",
-        "600",
-        "700",
-        "800",
-        "850",
-        "900"
-    };
-}
+</AppPage>
